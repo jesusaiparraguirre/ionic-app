@@ -1,0 +1,65 @@
+.btn-left{
+    position: absolute;
+    left: 0px;
+}
+.txt-center{
+    text-align: center;
+}
+.title{
+   color: white;
+   font-size: 14px;
+   font-weight: 600;
+}
+.logo-perfil{
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    img{
+        height: 102px;
+        width: 102px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+.txt-name{
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    color: #F4F4F4;
+    font-weight: 500;
+}
+.txt-title-adv{
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #F4F4F4;
+    font-weight: 600;
+    padding: 0px 20px;
+}
+.content-message{
+    background-color: #222222;
+    border-radius: 8px;
+    margin: 20px;
+    padding: 5px 20px;
+    text-align: center;
+    .txt-message{
+        font-size: 15px;
+        color: #F4F4F4;
+        font-weight: 600;
+        margin-top: 0px;
+        margin-bottom: 15px;
+    }
+    .txt-list{
+        text-align: left;
+        font-size: 14px;
+        color: #F4F4F4;
+        font-weight: 600;
+        margin-top: 0px;
+        margin-bottom: 11px;
+    }
+    img{
+        width: 50px;
+    }
+}

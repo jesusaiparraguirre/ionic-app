@@ -1,0 +1,9 @@
+<div *ngIf="resourceRoom" class="block-count-trans text-drip">
+  <ng-container *ngIf="resourceRoom.dateAvailable; else elseTemplate">
+    <p class="text-drip-message">{{resourceRoom.dateAvailable}}</p>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <p class="text-drip-message">{{resourceRoom.message}}</p>
+   <button *ngIf="resourceRoom.url" class="btn-solid-main outline" [disabled]="isDisabled"(click)="backRoom(resourceRoom.url)" >Volver</button>
+  </ng-template>
+</div>

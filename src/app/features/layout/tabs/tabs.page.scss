@@ -1,0 +1,33 @@
+/*
+.block-list-more{
+  ion-item{
+    --padding-start: 40px;
+    overflow: inherit;
+    position: relative;
+    font-size: 15px;
+    color: #CBCBCB;
+    --border-color: #363535;
+    --background: #171717;
+    --background-activated: #414141;
+    --background-focused: #414141;
+    --background-hover: #414141;
+    --color-activated: #CBCBCB;
+    --color-focused: #CBCBCB;
+    --color-hover: #CBCBCB;
+    --detail-icon-color: #BABABA;
+    --detail-icon-opacity: 1;
+    ion-icon{
+      font-size: 20px;
+      position: absolute;
+      left: -25px;
+      &.ico-arrow-t{
+        left: inherit;
+        right: 10px;
+        top: 50%;
+        margin-top: -10px;
+        color: #BABABA;
+      }
+    }
+  }
+}
+*/

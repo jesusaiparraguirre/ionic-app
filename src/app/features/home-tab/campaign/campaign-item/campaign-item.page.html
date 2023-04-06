@@ -1,0 +1,31 @@
+<div class="item-art buy-{{ ind }}">
+  <figure>
+    <a (click)="toDoAction()">
+      <img [src]="item.image" />
+    </a>
+  </figure>
+  <div class="inf-item-art">
+    <h2>
+      <a (click)="toDoAction()">{{ item.name }}</a>
+    </h2>
+    <span class="t-autor" *ngIf="item.author.length!=0">Por {{ item.author[0] ? item.author[0].name : "---" }}</span>
+    <ul class="reset-ul">
+      <li *ngIf="item.totalProducts">
+        <ion-icon name="cube"></ion-icon>
+        {{ item.totalProducts ? item.totalProducts : "0" }} {{ item.totalProducts > 1 ? "productos" : "producto"}}
+      </li>
+    </ul>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="!environment.android">
+      <span *ngIf="item.subscription?.active" class="left">Acceder</span>
+      <span *ngIf="!item.subscription?.active" class="left">Acceder</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="environment.android">
+      <span *ngIf="item.subscription?.active" class="left">Acceder</span>
+      <span *ngIf="!item.subscription?.active" class="left">Comprar</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+
+
+  </div>
+</div>

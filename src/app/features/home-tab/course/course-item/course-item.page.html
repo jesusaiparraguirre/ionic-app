@@ -1,0 +1,69 @@
+<div class="item-art buy-{{ item.subscription?.active && ind }}">
+  <figure>
+    <a (click)="toDoAction()">
+      <img [src]="item.image" />
+      <div class="tag">
+        <span class="tag-new" *ngIf="item.isNew">Nuevo</span>
+        <span class="tag-advanced" *ngIf="item.subType === 'advanced'">
+          <div class="circle">
+            <ion-icon name="layers"></ion-icon>
+          </div>
+        </span>
+        <span class="tag-vivo" *ngIf="item.isLive && !item.isNew">
+          {{item?.liveDesc}}
+        </span>
+      </div>
+    </a>
+  </figure>
+  <div class="inf-item-art">
+    <div class="slider-porc" *ngIf="item.subscription?.active && item.subscription?.progress != 0">
+      <div class="i-slider">
+        <span [ngStyle]="{ width: item.subscription?.progress + '%' }"></span>
+      </div>
+      <span>{{ item.subscription?.progress }}% completado</span>
+    </div>
+    <h2>
+      <a (click)="toDoAction()">{{ item.name }}</a>
+    </h2>
+    <span class="t-autor" *ngIf="item.author && item.author.length!=0">Por {{ formatHelper.formatUpper(item.author[0].name) }}</span>
+    <ul class="reset-ul">
+      <li *ngIf="!item.subscription?.active && item.date" class="date">
+        <ion-icon name="calendar-outline"></ion-icon>
+        {{ item.date }}
+      </li>
+      <li *ngIf="item.stream">
+        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+      </li>
+      <li *ngIf="(item.subscription?.active && !item.isLive) || !item?.isPayment">
+        <ion-icon name="time-outline"></ion-icon>
+        {{ item.duration ? item.duration : "--/--/--" }}
+      </li>
+      <li *ngIf="(item.subscription?.active && !item.isLive) || !item?.isPayment">
+        <ion-icon name="eye-outline"></ion-icon>
+        {{ item.visualizations ? item.visualizations : 0 }}
+      </li>
+    </ul>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="!environment.android">
+      <div *ngIf="!item.subscription?.active && item?.isPayment" class="left">
+        <!-- <span>{{item.price?.priceFormat}}</span>
+        <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotionFormat }}</em
+        > -->
+        <span class="left-to">Ver detalle</span>
+      </div>
+      <span *ngIf="item.subscription?.active" class="left">Reanudar</span>
+      <span *ngIf="!item.subscription?.active && !item?.isPayment" class="left-to">Gratuito</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="environment.android">
+      <div *ngIf="!item.subscription?.active && item?.isPayment" class="left">
+        <!-- <span>{{ item.price?.price }} {{ item.price?.currency }}</span> -->
+        <span>{{item.price?.priceFormat}}</span>
+        <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotionFormat }}</em>
+      </div>
+      <span *ngIf="item.subscription?.active && item.subscription?.progress != 100" class="left">Reanudar</span>
+      <span *ngIf="item.subscription?.active && item.subscription?.progress == 100" class="left">Ver</span>
+      <span *ngIf="!item.subscription?.active && !item?.isPayment" class="left-to">Acceder</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+  </div>
+</div>

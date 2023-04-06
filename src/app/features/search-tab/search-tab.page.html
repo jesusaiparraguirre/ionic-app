@@ -1,0 +1,277 @@
+<div>
+    <ion-toolbar class="bg-search">
+        <ion-searchbar (ionChange)="ionChange($event)" class="bg-input" placeholder="¿Qué quieres aprender?"
+                       debounce="1000"></ion-searchbar>
+    </ion-toolbar>
+</div>
+<ion-content class="bg-content">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+        pullingIcon=""
+        pullingText=""
+        refreshingSpinner="circles"
+        refreshingText=""
+        ></ion-refresher-content>
+    </ion-refresher>
+    <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segment" class="scroll-nav" value="">
+        <ion-segment-button *ngFor="let item of dataSegment" [value]="item.id" (click)="changeType(item.id)">
+            <ion-label>
+                <ion-icon name="apps" *ngIf="item.id == ''"></ion-icon> 
+                <ion-icon name="cube" *ngIf="item.id == '3'"></ion-icon>
+                <ion-icon name="school" *ngIf="item.id == '2'"></ion-icon>
+                <ion-icon name="calendar" *ngIf="item.id == '1'"></ion-icon>
+                <ion-icon name="people" *ngIf="item.id == '500'"></ion-icon>
+                <ion-icon name="logo-buffer" *ngIf="item.id == '400'"></ion-icon>
+                {{item.name}}
+            </ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list">
+
+
+        <ion-item *ngFor="let item of publications">
+
+            <!--Curso-->
+            <div *ngIf="item.type == '2'" (click)="showCourse(item)" class="w-100">
+                <article class="item-article">
+                    <div class="card-article">
+                        <figure>
+                            <a [ngStyle]="{'background-image': 'url('+item.image+')'}"
+                                style="background-image: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+                                <img [src]="item.image" alt="">
+                                <span *ngIf="item.isLive && !item.isNew" class="tag-vivo">{{item.liveDesc}}</span>
+                                <span *ngIf="item.isNew" class="tag-new">Nuevo</span>
+                            </a>
+                        </figure>
+                        <div class="inf-card-article">
+                            <a class="t-cat" *ngIf="segment==''">Curso</a>
+                            <h2><a >{{item.name}}</a></h2>
+                            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author)
+                                }}</span>
+                            <div class="slider-course"  *ngIf="item.subscription?.active">
+                                <div class="rect-slider" *ngIf="item.subscription.progress > 0">
+                                    <span [ngStyle]="{'width': item.subscription.progress + '%'}"></span>
+                                </div>
+                                <span *ngIf="item.subscription.progress > 0">{{ item.subscription.progress | number: '2.0-2' }}% completado</span>
+                                <button class="btn-shop btn-shop">Reanudar</button>
+                            </div>
+                            <div class="all-list" *ngIf="!item.subscription?.active && item?.isPayment">
+                                <ul>
+                                    <li class="date" *ngIf="!item.subscription?.active">
+                                        <ion-icon name="calendar"></ion-icon> {{item.date ? item.date : "--/--/--"}}
+                                    </li>
+                                    <li *ngIf="item.stream">
+                                        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+                                    </li>
+                                    <li *ngIf="item.subscription?.active && !item.isLive">
+                                        <ion-icon name="time"></ion-icon> {{item.duration}}
+                                    </li>
+                                    <li *ngIf="item.subscription?.active && !item.isLive">
+                                        <ion-icon name="eye"></ion-icon> {{item.visualizations}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div *ngIf="!item.subscription?.active && item?.isPayment && environment.android" class="all-preci">
+                                <span>{{item.price?.priceFormat}}</span>
+                                <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotionFormat }}</em>
+                            </div>
+                            <div *ngIf="!item.subscription?.active && item?.isPayment && !environment.android" class="all-preci">
+                                <!-- <span>{{item.price?.priceFormat}}</span>
+                                <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotion }} {{ item.price?.currency
+                                    }}</em> -->
+                                <button class="btn-shop btn-access">Acceder</button>
+                            </div>
+                            <div class="all-preci" *ngIf="!item.subscription?.active  && !item?.isPayment">
+                                <button class="btn-shop btn-access">Acceder</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!--Mentoría-->
+            <div *ngIf="item.type == '500'" (click)="showMeeting(item.id)" class="w-100">
+                <article class="item-article">
+                    <div class="card-article">
+                        <figure>
+                            <a  [ngStyle]="{'background-image': 'url('+item.image+')'}"
+                                style="background: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+                                <img [src]="item.image" alt="">
+                                <span [ngClass]="{'tag-vivo': item.isLive && !item.isNew, 'tag-face-to': !item.isLive && !item.isNew, 'tag-new': item.isNew }">{{item.liveDesc}}</span>
+                            </a>
+                        </figure>
+                        <div class="inf-card-article">
+                            <a *ngIf="!item.subscription.active && segment==''" class="t-cat">Mentoría</a>
+                            <!-- <div *ngIf="item.subscription.active" class="all-cat-h">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="t-cat">Mentoría</a>
+                                    </li>
+                                    <li><ion-icon name="globe-outline"></ion-icon> America/Lima</li>
+                                </ul>
+                            </div> -->
+                            <h2><a  *ngIf="item.name">{{item.name}}</a></h2>
+                            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author)
+                                }}</span>
+                            <!-- <span *ngIf="item.subscription.active" class="t-reserv">Pendiente de reserva</span> -->
+                            <!-- <div class="all-list" *ngIf="!item.subscription.active"> -->
+                            <div class="all-list">
+                                <ul>
+                                    <li *ngIf="item.isLive && item?.stream">
+                                        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+                                    </li>
+                                    <li *ngIf="!item.isLive"><span class="tag-pre">Presencial</span></li>
+                                    <li *ngIf="!item.meetingType"><span class="tag tag-individual">Individual</span></li>
+                                    <li *ngIf="item.meetingType"><span class="tag-paq">Paquete</span></li>
+                                </ul>
+                            </div>
+                            <!-- <div class="all-preci" *ngIf="!item.meetingType && !item.subscription.active"> -->
+                            <div class="all-preci" *ngIf="!item.meetingType && environment.android">
+                                <span>{{ item.price?.priceFormat }}</span>
+                                <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotionFormat
+                                    }}</em>
+                            </div>
+                            <div class="all-preci" *ngIf="!item.meetingType && !environment.android">
+                                <!-- <span>{{ item.price?.priceFormat }}</span>
+                                <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotionFormat
+                                    }}</em> -->
+                                <button class="btn-shop">Acceder</button>
+                            </div>
+                            <!-- <div class="all-preci" *ngIf="item.meetingType && !item.subscription.active">
+                                <button class="btn-shop">Comprar</button>
+                            </div> -->
+                            <div class="all-preci" *ngIf="item.meetingType && environment.android">
+                                <button class="btn-shop">Comprar</button>
+                            </div>
+                            <div class="all-preci" *ngIf="item.meetingType && !environment.android">
+                                <button class="btn-shop">Acceder</button>
+                            </div>
+                            <!-- <div class="all-btn-reser" *ngIf="item.subscription.active">
+                                <button class="btn-l-session">Mis sesiones</button>
+                            </div> -->
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!--Campaña-->
+            <div *ngIf="item.type == '400'" (click)="showCampaign(item.id)" class="w-100">
+                <article class="item-article">
+                    <div class="card-article">
+                        <figure>
+                            <a  [ngStyle]="{'background-image': 'url('+item.image+')'}"
+                                style="background: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+                                <img [src]="item.image" alt="image-campaign">
+                            </a>
+                        </figure>
+                        <div class="inf-card-article">
+                            <a  class="t-cat" *ngIf="segment==''">Campaña</a>
+                            <h2><a  *ngIf="item.name">{{item.name}}</a></h2>
+                            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author)
+                                }}</span>
+                            <div class="all-list">
+                                <ul>
+                                    <li>
+                                        <ion-icon name="cube"></ion-icon>
+                                        {{ item.totalProducts ? item.totalProducts : "0" }} {{ item.totalProducts > 1 ?
+                                        "productos" : "producto"}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <button *ngIf="!item.subscription?.active && environment.android" class="btn-shop">Comprar</button>
+                            <button *ngIf="!item.subscription?.active && !environment.android" class="btn-shop">Acceder</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!--Evento-->
+            <div *ngIf="item.type == '1'" (click)="showEvent(item)" class="w-100">
+                <article class="item-article">
+                    <div class="card-article">
+                        <figure>
+                            <a  
+                            [ngStyle]="{'background-image': 'url('+item.image+')'}"
+                            style="background: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+                                <img [src]="item.image" alt="image-event">
+                                <span *ngIf="!item.isLive" class="tag-face-to">{{item.liveDesc}}</span>
+                                <span *ngIf="item.isLive" class="tag-vivo">{{item.liveDesc}}</span>
+                            </a>
+                        </figure>
+                        <div class="inf-card-article">
+                            <a  class="t-cat" *ngIf="segment==''">Evento</a>
+                            <h2><a  *ngIf="item.name">{{item.name}}</a></h2>
+                            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author) }}</span>
+                            <div class="all-list">
+                                <ul>
+                                    <li *ngIf="item.stream">
+                                        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+                                    </li>
+                                    <li class="date" *ngIf="item.date"><ion-icon name="calendar"></ion-icon> {{ item.date }}</li>
+                                    <li *ngIf="item.city"><ion-icon name="location"></ion-icon> {{ item?.city }}</li>
+                                </ul>
+                            </div>
+                            <div class="all-preci">
+                                <button *ngIf="!item.subscription?.active && !environment.android" class="btn-shop">Acceder</button>
+                                <button *ngIf="!item.subscription?.active && environment.android" class="btn-shop">Comprar</button>
+                                <!-- <span>99.99USD</span>
+                                <em>120.00USD</em> -->
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!--Producto-->
+            <div *ngIf="item.type == '3'" class="w-100">
+                <article class="item-article">
+                    <div class="card-article">
+                        <figure>
+                            <a  
+                            [ngStyle]="{'background-image': 'url('+item.image+')'}"
+                            style="background: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+                                <img [src]="item.image" alt="image-event">
+                                <span *ngIf="item.isLive" class="tag-face-to">{{item.liveDesc}}</span>
+                                <span *ngIf="!item.isLive" class="tag-vivo">{{item.liveDesc}}</span>
+                            </a>
+                        </figure>
+                        <div class="inf-card-article">
+                            <a  class="t-cat" *ngIf="segment==''">Evento</a>
+                            <h2><a  *ngIf="item.name">{{item.name}}</a></h2>
+                            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author) }}</span>
+                            <div class="all-list">
+                                <ul>
+                                    <li *ngIf="item.stream">
+                                        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div *ngIf="!item.subscription?.active && item?.isPayment && environment.android" class="all-preci">
+                                <span>{{ item.price?.price }}{{ item.price?.currency }}</span>
+                                <em *ngIf="item.price?.enabledPromotion">{{ item.price?.pricePromotionFormat }}</em>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+        </ion-item>
+ 
+        <ion-item *ngIf="publications.length==0 && !isLoading">
+            <div *ngIf="type != '400' && type != '500'" class="span-message">Aún no contamos con registros</div>
+            <div *ngIf="type == '400' || type == '500'" class="page-content center-box">
+                <div class="block-promotion">
+                    <ion-icon name="gift"></ion-icon>
+                    <span>Pronto disponible</span>
+                </div>
+            </div>
+        </ion-item>
+        
+    </ion-list>
+    
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="data && data?.data && data?.page?.current != data?.page?.last">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

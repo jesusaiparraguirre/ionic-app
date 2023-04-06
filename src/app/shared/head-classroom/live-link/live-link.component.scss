@@ -1,0 +1,145 @@
+.block-count-trans {
+  position: relative;
+  min-height: 210px;
+  background: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  flex-direction: column;
+    h4 {
+      margin-top: 0;
+      text-transform: uppercase;
+      color: #cccccc;
+      font-size: 8px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      li {
+        margin-bottom: 10px;
+        text-align: center;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .custom-countdown {
+      & > div {
+        span {
+          font-size: 18px;
+          color: #cccccc;
+          font-weight: 300;
+          background: transparent;
+          height: auto;
+          margin-bottom: 2px;
+        }
+        em {
+          font-size: 6px;
+          color: #cccccc;
+          text-transform: uppercase;
+        }
+      }
+      & > span {
+        color: #cccccc;
+      }
+    
+  }
+  .b-tecn-r {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    ul {
+      padding: 0;
+      li {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 6px;
+        &:last-child {
+          margin-right: 0;
+        }
+        .ico-google-meet {
+          width: 73px;
+          height: 15px;
+          // background: url(~/assets/google-meet.png) no-repeat;
+          background-size: 100% 100%;
+          display: block;
+        }
+        .ico-live-meet {
+          font-size: 10px;
+          color: #ffffff;
+          font-weight: 500;
+          border-radius: 3px;
+          background: #ac7bde;
+          line-height: 15px;
+          height: 15px;
+          padding: 0 8px;
+          display: block;
+        }
+        .ico-zoom-meet {
+          width: 40px;
+          height: 14px;
+          // background: url(~/assets/g-zoom.png) no-repeat;
+          background-size: 100% 100%;
+          display: block;
+        }
+      }
+    }
+  }
+}
+.btn-l-primary-m {
+  border-radius: 4px;
+  background: #4a8cff;
+  height: 26px;
+  padding: 0 18px;
+  line-height: 26px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 10px;
+  font-weight: 500;
+  color: #efefef;
+  text-decoration: none;
+  ion-icon {
+    margin-left: 5px;
+  }
+  &:active,
+  &:hover,
+  &:focus {
+    opacity: 0.9;
+  }
+}
+.btn-l-secondary-m {
+  font-size: 10px;
+  color: #cccccc;
+  text-decoration: underline;
+  display: inline-block;
+  vertical-align: top;
+  ion-icon {
+    margin-left: 5px;
+  }
+}
+.span-message-transmitted{
+  color: #fff;
+  font-size: 14px;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.btn-transmition::shadow{
+  font-size: 12px !important;
+  --border-radius: 6px;
+  padding: 3px 0px 3px 0px !important;
+  p{
+    font-size: 12px !important;
+    margin: 0px 25px 0px 15px !important;
+  }
+  ion-icon{
+    margin-left: -20px;
+    margin-right: 5px;
+    font-size: 12px;
+  }
+}

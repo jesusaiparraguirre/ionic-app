@@ -1,0 +1,217 @@
+<ion-header class="header-modal" translucent>
+  <ion-toolbar>
+    <ion-title>Valoración</ion-title>
+      <ion-button class="btn-close" (click)="closeModel()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal" fullscreen>
+  <div class="content-modal pt-35">
+    <div class="block-content-aula">
+      <div class="clear-fix inner-q-qualify">
+        <h4>¿Qué tal te pareció la clase que acabas de ver?</h4>
+        <p>Con tu calificación nos ayudas a llevar un mejor contenido a todos los estudiantes</p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="clear-fix list-question">
+              <p>¿Qué te pareció el forma de exponer el tema?</p>
+              <span>Malo</span>
+              <div class="star-list">
+                <ion-icon *ngFor="let n of [1, 2, 3, 4, 5]" [name]="dataStarts.question1 >= n ? 'star' : 'star-outline'"
+                  (click)="dataStarts.question1 = n;"></ion-icon>
+              </div>
+              <span>Excelente</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="clear-fix list-question">
+              <p>¿Consideras que todas tus dudas fueron resueltas?</p>
+              <span>Malo</span>
+              <div class="star-list">
+                <ion-icon *ngFor="let n of [1, 2, 3, 4, 5]" [name]="dataStarts.question2 >= n ? 'star' : 'star-outline'"
+                  (click)="dataStarts.question2 = n;"></ion-icon>
+              </div>
+              <span>Excelente</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="clear-fix list-question">
+              <p>¿El docente tuvo un buen dominio?</p>
+              <span>Malo</span>
+              <div class="star-list">
+                <ion-icon *ngFor="let n of [1, 2, 3, 4, 5]" [name]="dataStarts.question3 >= n ? 'star' : 'star-outline'"
+                  (click)="dataStarts.question3 = n;"></ion-icon>
+              </div>
+              <span>Excelente</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="clear-fix list-question">
+              <p>¿Qué te pareció el curso en general?</p>
+              <span>Malo</span>
+              <div class="star-list">
+                <ion-icon *ngFor="let n of [1, 2, 3, 4, 5]" [name]="dataStarts.question4 >= n ? 'star' : 'star-outline'"
+                  (click)="dataStarts.question4 = n;"></ion-icon>
+              </div>
+              <span>Excelente</span>
+            </div>
+          </div>
+        </div>
+        <div class="clear-fix t-comment-c">
+          <form (ngSubmit)="onSubmit()" [formGroup]="form">
+            <textarea formControlName="comment" name="comment" id="comment" cols="3" rows="2" class="form-control"
+              placeholder="Deja tu comentario aquí"></textarea>
+            <div class="error-message" *ngIf="f.comment.hasError">
+              <span *ngIf="f.comment.value == '' && f.comment.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+            </div>
+            <div class="b-submit text-right"> 
+              <button [disabled]="isLoading" type="submit" class="btn btn-l-primary">{{isLoading ? 'Guardando' : 'Comentar'}} <ion-spinner *ngIf="isLoading"></ion-spinner></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr class="line-aula">
+      <div class="cnt-tab-assess">
+        <h3>Valoración y comentarios</h3>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="clear-fix num-calf">
+              <div class="clear-fix text-num-calf">
+                <em>{{this.dataStarts.average}}</em>
+              </div>
+              <div class="clear-fix ico-start-calf">
+                <div class="start-calf">
+                  <ion-icon *ngFor="let n of [1, 2, 3, 4, 5]" [name]="dataStarts.average >= n ? 
+                    (isInteger(n, dataStarts.average) ? 'star' : 'star-half-outline') 
+                  : (isDecimal(n, dataStarts.average) ? 'star-half-outline' : 'star-outline')"></ion-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <ul class="reset-ul block-calf-star">
+              <li>
+                <div class="clear-fix block-list-calf-g">
+                  <div class="start-calf">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                  </div>
+                  <div class="all-block-t">
+                    <div class="block-prog-c">
+                      <span>{{dataRatingUser.rating5}}%</span>
+                      <div class="progress-p">
+                        <div class="progress-bar-p progress-calf" [ngStyle]="{'width': dataRatingUser.rating5 + '%'}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="clear-fix block-list-calf-g">
+                  <div class="start-calf">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                  </div>
+                  <div class="all-block-t">
+                    <div class="block-prog-c">
+                      <span>{{dataRatingUser.rating4}}%</span>
+                      <div class="progress-p">
+                        <div class="progress-bar-p progress-calf" [ngStyle]="{'width': dataRatingUser.rating4 + '%'}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="clear-fix block-list-calf-g">
+                  <div class="start-calf">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                  </div>
+                  <div class="all-block-t">
+                    <div class="block-prog-c">
+                      <span>{{dataRatingUser.rating3}}%</span>
+                      <div class="progress-p">
+                        <div class="progress-bar-p progress-calf" [ngStyle]="{'width': dataRatingUser.rating3 + '%'}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="clear-fix block-list-calf-g">
+                  <div class="start-calf">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                  </div>
+                  <div class="all-block-t">
+                    <div class="block-prog-c">
+                      <span>{{dataRatingUser.rating2}}%</span>
+                      <div class="progress-p">
+                        <div class="progress-bar-p progress-calf" [ngStyle]="{'width': dataRatingUser.rating2 + '%'}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="clear-fix block-list-calf-g">
+                  <div class="start-calf">
+                    <ion-icon name="star"></ion-icon>
+                  </div>
+                  <div class="all-block-t">
+                    <div class="block-prog-c">
+                      <span>{{dataRatingUser.rating1}}%</span>
+                      <div class="progress-p">
+                        <div class="progress-bar-p progress-calf" [ngStyle]="{'width': dataRatingUser.rating1 + '%'}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" *ngFor="let item of comments">
+            <div class="clear-fix list-answer">
+              <div class="clear-fix item-answer">
+                <figure style="background: url({{item.userImage}}) no-repeat;background-size: cover;">
+                  <img [src]="item.userImage" alt="">
+                </figure>
+                <h3>{{item.userName}}</h3>
+                <div class="start-calf">
+                  <ion-icon *ngFor="let n of [1, 2, 3, 4, 5]" [name]="item.valoration >= n ? 
+                    (isInteger(n, item.valoration) ? 'star' : 'star-half-outline') 
+                  : (isDecimal(n, item.valoration) ? 'star-half-outline' : 'star-outline')"></ion-icon>
+                </div>
+                <span>{{item.date}}</span>
+              </div>
+              <p>{{item.comment}}</p>
+            </div>
+          </div>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+            *ngIf="dataComments && dataComments?.data && dataComments?.page?.current != dataComments?.page?.last">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </div>
+      </div>
+    </div>
+    <div class="all-btn-modal">
+      <button class="btn-solid-main outline" (click)="closeModel()">Volver</button>
+    </div>
+  </div>
+</ion-content>

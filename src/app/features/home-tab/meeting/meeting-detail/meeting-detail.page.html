@@ -1,0 +1,82 @@
+<div>
+	<ion-toolbar class="bg-header">
+		<ion-button class="btn-back" (click)="location.back()">
+			<ion-icon name="chevron-back-outline"></ion-icon>
+		</ion-button>
+		<ion-title class="title-page">Mentoría</ion-title>
+	</ion-toolbar>
+</div>
+<ion-content class="bg-content-page" fullscreen>
+	<div class="image-article" *ngIf="meeting">
+        <img *ngIf="!!meeting.image?.real" [src]="meeting.image?.real" />
+		<a *ngIf="!meeting.image?.real && !!meeting.video" href="#">
+			<img src="assets/event.jpg" />
+			<div class="video-campaign">
+				<ion-icon name="play-outline"></ion-icon>
+				<span>Reproducir</span>
+			</div>
+		</a>
+    </div>
+	<div class="content-article" *ngIf="meeting">
+		<div class="b-title-article">
+			<span *ngIf="meeting.meetingType" class="tag tag-paq">Paquete</span>
+			<span *ngIf="!meeting.meetingType" class="tag tag-individual">Individual</span>
+			<h1 *ngIf="meeting.name">{{ meeting.name }}</h1>
+			<span class="t-autor" *ngIf="meeting.author.length != 0 && !meeting.meetingType">Por {{ listAuthors(meeting.author) }}</span>
+			<span [ngClass]="{'tag-vivo': meeting.isLive, 'tag-face-to': meeting.isLive }">{{meeting.liveDesc}}</span>
+			<div class="all-list">
+				<ul>
+					<li><app-tag [description]="meeting.liveDesc" [stream]="meeting.stream" [isLive]="meeting.isLive"></app-tag></li>
+				</ul>
+			</div>
+			<p *ngIf="meeting.detail">{{ meeting.detail }}</p>
+			<p *ngIf="meeting.detailComplete" [innerHTML]="meeting.detailComplete "></p>
+		</div>
+		<div class="b-select-fech" *ngIf="!meeting.meetingType">
+			<h3 class="title-block-c">Seleccionar fecha</h3>
+			<div class="block-calendar-ment">
+				<div class="header-calendar-m">
+					<ul>
+						<li><span class="i-disp"></span> Disponible</li>
+						<li><span class="i-reserv"></span> Reservado</li>
+						<li><span class="i-select"></span> Seleccionado</li>
+					</ul>
+				</div>
+				<div class="body-calendar-reserv">
+					<div id="datepickerMent" class="custom-datepicker"></div>
+				</div>
+				<div class="footer-calendar-m">
+					<span><ion-icon name="globe-outline"></ion-icon> Hora de Perú ({{hourLocal}}:{{minLocal}})</span>
+				</div>
+			</div>
+		</div>
+		<div class="b-reserv" *ngIf="meeting.meetingType && meeting.author.length != 0">
+			<h3>Estás reservando con <span>{{ listAuthors(meeting.author) }}</span></h3>
+			<!-- <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliqu erat, sed diam voluptua.</p> -->
+		</div>
+		<div class="b-ticket" *ngIf="meeting.meetingType && environment.android">
+			<h3 class="title-block-c" *ngIf="meeting.price && meeting.price.length">Seleccionar ticket</h3>
+			<div class="item-ticket t-one"
+			*ngFor="let item of meeting.price; let i = index;"
+			[ngClass]="{'t-one': i%3 == 1,'t-two': i%3 == 2,'t-three': i%3 == 0}"
+			>
+				<div class="inf-ticket">
+					<h4>{{item.name}}</h4>
+					<h2>{{item.priceFormat}}</h2>
+					<h3 *ngIf="item.enabledPromotion">{{item.pricePromotionFormat}}</h3>
+					<p *ngIf="item.benefits && item.benefits.length">¿Qué incluye tu membresía?</p>
+					<ul *ngFor="let ben of item.benefits">
+						<li><ion-icon name="checkmark-circle-outline"></ion-icon> {{ben}}</li>
+					</ul>
+				</div>
+				<ion-button (click)="openIonModalLinkPago(item.id)">
+					Comprar ticket
+				</ion-button>
+			</div>
+		</div>
+		<div class="b-term" *ngIf="meeting.termsConditions">
+			<h3 class="title-block-c">Términos y condiciones</h3>
+			<p>{{meeting.termsConditions}}</p>
+		</div>
+	</div>
+</ion-content>

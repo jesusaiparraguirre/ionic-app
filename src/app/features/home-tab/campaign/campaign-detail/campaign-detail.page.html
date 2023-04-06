@@ -1,0 +1,155 @@
+<!--<ion-header translucent>-->
+<!--  <ion-toolbar class="bg-header">-->
+<!--    <ion-button class="btn-back" (click)="location.back()">-->
+<!--      <ion-icon name="chevron-back-outline"></ion-icon>-->
+<!--    </ion-button>-->
+<!--    <ion-title class="title-page">Campaña</ion-title>-->
+<!--  </ion-toolbar>-->
+<!--</ion-header>-->
+<div>
+  <ion-toolbar class="bg-header">
+    <ion-button class="btn-back" (click)="location.back()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title class="title-page">Campaña</ion-title>
+  </ion-toolbar>
+</div>
+<ion-content class="bg-content-page" fullscreen>
+  <div class="image-article" *ngIf="campaign">
+    <a>
+      <img [src]="campaign.image.real" />
+      <!-- <div class="video-campaign">
+        <ion-icon name="play-outline"></ion-icon>
+        <span>Reproducir</span>
+      </div> -->
+    </a>
+  </div>
+  <div class="content-article" *ngIf="campaign">
+    <div class="b-title-article">
+      <h1>{{ campaign.name }}</h1>
+      <div class="all-list">
+        <ul>
+          <li>
+            <ion-icon name="cube-outline"></ion-icon> {{ campaign.totalProducts }} {{ campaign.totalProducts == '1' ?
+            'producto' : 'productos' }}
+          </li>
+        </ul>
+      </div>
+      <p>{{ campaign.detail }}</p>
+    </div>
+    <hr *ngIf="campaign.benefits && campaign.benefits.length">
+    <div class="b-benefit" *ngIf="campaign.benefits.length">
+      <h3 class="title-block-c">Beneficios</h3>
+      <ul>
+        <li *ngFor="let item of campaign.benefits; let i = index;">
+          <span>{{i + 1}}.</span> {{ item }}
+        </li>
+      </ul> 
+    </div>
+    <hr *ngIf="campaign.publication && campaign.publication.length">
+    <div class="b-product" *ngIf="campaign.publication.length">
+      <h3 class="title-block-c">Contenido</h3>
+      <article class="item-article" *ngFor="let item of campaign.publication">
+        <!--Curso-->
+        <div class="card-article" (click)="showCourse(item)" *ngIf="item.type == '2'">
+          <figure>
+            <a
+            [ngStyle]="{'background-image': 'url('+item.image.real+')'}"
+              style="background: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+              <img [src]="item.image" alt="">
+            </a>
+            <span class="tag-new" *ngIf="item.isNew">Nuevo</span>
+            <span *ngIf="!item.isNew && item.isLive" [ngClass]="{'tag-vivo': item.isLive && !item.isNew, 'tag-face-to': !item.isLive && !item.isNew, 'tag-new': item.isNew }">{{item.liveDesc}}</span>
+          </figure>
+          <div class="inf-card-article">
+            <div class="all-cat-h">
+              <ul>
+                <li>
+                  <a class="t-cat">Curso</a>
+                </li>
+              </ul>
+            </div>
+            <h2><a>{{ item.name }}</a></h2>
+            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author)
+            }}</span>
+            <div class="all-list">
+              <ul> 
+                  <li class="date" *ngIf="item.isLive && item.date">
+                      <ion-icon name="calendar"></ion-icon> {{item.date ? item.date : "--/--/--"}}
+                  </li>
+                  <li *ngIf="item.isLive && item.stream">
+                    <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+                  </li>
+                  <li *ngIf="!item.isLive">
+                      <ion-icon name="time"></ion-icon> {{item.duration}}
+                  </li>
+                  <li *ngIf="!item.isLive">
+                      <ion-icon name="eye-outline"></ion-icon> {{item.visualizations}}
+                  </li>
+              </ul>
+          </div>
+          </div>
+        </div>
+        <!--Evento-->
+        <div class="card-article" (click)="showEvent(item)"*ngIf="item.type == '1'">
+          <figure>
+            <a 
+            [ngStyle]="{'background-image': 'url('+item.image+')'}"
+              style="background: url(assets/item-article.jpg) no-repeat;background-size: cover;background-position: center center;">
+              <img [src]="item.image" alt="">
+            </a>
+            <span [ngClass]="{'tag-vivo': item.isLive, 'tag-face-to': !item.isLive }">{{item.liveDesc}}</span>
+          </figure>
+          <div class="inf-card-article">
+            <div class="all-cat-h">
+              <ul>
+                <li>
+                  <a  class="t-cat">Evento</a>
+                </li>
+              </ul>
+            </div>
+            <h2 *ngIf="item.name"><a >{{ item.name }}</a></h2>
+            <span class="t-autor" *ngIf="item.author.length!=0">Por {{ listAuthors(item.author)
+            }}</span>
+            <div class="all-list">
+              <ul>
+                <li class="date">
+                  <ion-icon name="calendar"></ion-icon> {{ item.date }}
+                </li>
+                <li *ngIf="item.stream">
+                  <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+                </li>
+                <li *ngIf="item.city"><ion-icon name="location"></ion-icon> {{ item?.city }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <hr *ngIf="campaign.price && campaign.price.length">
+    <div class="b-ticket" *ngIf="campaign.price && campaign.price.length && environment.android">
+      <h3 class="title-block-c">Seleccionar ticket</h3>
+      <div class="item-ticket t-one"
+			*ngFor="let item of campaign.price; let i = index;"
+			[ngClass]="{'t-one': i%3 == 1,'t-two': i%3 == 2,'t-three': i%3 == 0}"
+			>
+				<div class="inf-ticket">
+					<h4>{{item.name}}</h4>
+          <h2>{{item.priceFormat}}</h2>
+					<h3 *ngIf="item.enabledPromotion">{{item.pricePromotionFormat}}</h3>
+					<p *ngIf="item.benefits && item.benefits.length">¿Qué incluye tu membresía?</p>
+					<ul *ngFor="let ben of item.benefits">
+						<li><ion-icon name="checkmark-circle-outline"></ion-icon> {{ben}}</li>
+					</ul>
+				</div>
+				<ion-button (click)="openIonModalLinkPago(item.id)">
+					Comprar ticket
+				</ion-button>
+			</div>
+    </div>
+    <div class="b-term" *ngIf="campaign.termsConditions">
+      <h3 class="title-block-c">Términos y condiciones</h3>
+      <p>{{campaign.termsConditions}}</p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,249 @@
+.header-room {
+  min-height: 210px;
+}
+.block-count-trans {
+  position: relative;
+  min-height: 210px;
+  background: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .b-timer-event {
+    h4 {
+      margin-top: 0;
+      text-transform: uppercase;
+      color: #cccccc;
+      font-size: 8px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+  }
+  .custom-countdown {
+    & > div {
+      span {
+        font-size: 18px;
+        color: #cccccc;
+        font-weight: 300;
+        background: transparent;
+        height: auto;
+        margin-bottom: 2px;
+      }
+      em {
+        font-size: 6px;
+        color: #cccccc;
+        text-transform: uppercase;
+      }
+    }
+    & > span {
+      color: #cccccc;
+    }
+  }
+  .b-tecn-r {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    ul {
+      li {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 6px;
+        &:last-child {
+          margin-right: 0;
+        }
+        .ico-google-meet {
+          width: 73px;
+          height: 15px;
+          // background: url(~/assets/google-meet.png) no-repeat;
+          background-size: 100% 100%;
+          display: block;
+        }
+        .ico-live-meet {
+          font-size: 10px;
+          color: #ffffff;
+          font-weight: 500;
+          border-radius: 3px;
+          background: #ac7bde;
+          line-height: 15px;
+          height: 15px;
+          padding: 0 8px;
+          display: block;
+        }
+        .ico-zoom-meet {
+          width: 40px;
+          height: 14px;
+          // background: url(~/assets/g-zoom.png) no-repeat;
+          background-size: 100% 100%;
+          display: block;
+        }
+      }
+    }
+  }
+}
+.bg-video-course {
+  --background: transparent;
+  background: #0F0F10;
+}
+.content-article {
+  padding: 0 20px;
+  .b-title-article {
+    margin-bottom: 20px;
+    width: 100%;
+    h1 {
+      font-size: 17px;
+      color: #ededed;
+      font-weight: 600;
+      margin-bottom: 15px;
+      margin-top: 15px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
+/*Dropwdown*/
+.dropbtn {
+  color: #fff;
+  padding: 0;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 18px;
+  height: 24px;
+  // background: url(~/assets/ico-drowp.png) no-repeat;
+  background-size: 100% 100%;
+}
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #2c2f31;
+  border-radius: 4px;
+  min-width: 200px;
+  overflow: auto;
+  right: 0;
+  z-index: 9;
+  padding: 18px 10px;
+  text-align: right;
+}
+.dropdown-content button {
+  color: #e2e2e2;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 15px;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  text-align: right;
+}
+.dropdown-content button:last-child {
+  margin-bottom: 0;
+}
+.dropdown-content button ion-icon {
+  margin-left: 5px;
+}
+.dropdown a:hover {
+  background-color: #ddd;
+}
+.show {
+  display: block;
+}
+.block-title-video {
+  padding-right: 30px;
+  position: relative;
+}
+.block-title-video .dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/*Content*/
+.content-list-course{
+	margin-left: -20px;
+    margin-right: -20px;
+}
+/*Comentarios*/
+.b-coment-tab{
+	padding: 52px 20px;
+	text-align: center;
+	span{
+		display: inline-block;
+		vertical-align: top;
+		margin-bottom: 14px;
+		width: 56px;
+		img{
+			width: 100%;
+		}
+	}
+	p{
+		font-size: 12px;
+		color: #B9B9B9;
+		line-height: 140%;
+		margin-top: 0;
+	}
+}
+.b-cert-tab{
+	padding: 52px 20px;
+	text-align: center;
+	span{
+		display: inline-block;
+		vertical-align: top;
+		margin-bottom: 14px;
+		width: 46px;
+		img{
+			width: 100%;
+		}
+	}
+	p{
+		font-size: 12px;
+		color: #B9B9B9;
+		line-height: 140%;
+		margin-top: 0;
+	}
+}
+
+.skeleton-media{
+  background-color: #fff;
+  margin-bottom: 20px;
+  height: 210px;
+}
+
+.skeleton-text{
+  background-color: #fff;
+  width: 150px;
+  height: 25px;
+}
+
+.skeleton-content{
+  background-color: #fff;
+  height: 100px;
+  margin: 20px;
+  width: 90%;
+}
+
+.text-drip {
+  text-align: center;
+  color: white;
+  // margin-top: 30px;
+}
+
+/*room sniper*/
+.room-sniper {
+  background-color: #0000;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.text-drip .text-drip-message{
+  font-size: 14px;
+  text-transform: uppercase;
+}

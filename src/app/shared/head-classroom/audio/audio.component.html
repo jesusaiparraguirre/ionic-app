@@ -1,0 +1,31 @@
+<!--Audio-->
+<div class="flex ion-justify-content-center">
+  <img [src]="imageDefault" height="158" />
+</div>
+<ng-container *ngIf="playerConfig">
+  <ng-container *ngIf="playerConfig.isHls; else elseTemplatePlayer" playsinline>
+    <div
+      playsinline
+      class="tag_audio"
+      plyr
+      [plyrPlaysInline]="true"
+      plyrTitle="Audio"
+      plyrType="audio"
+      [plyrSources]="playerConfig.sourceInfo.sources"
+      [plyrOptions]="options"
+      (plyrInit)="playerInit($event)"
+    ></div>
+  </ng-container>
+  <ng-template #elseTemplatePlayer playsinline>
+    <div
+      playsinline
+      class="tag_audio"
+      plyr
+      [plyrPlaysInline]="true"
+      plyrTitle="Audio"
+      plyrType="audio"
+      [plyrOptions]="options"
+      (plyrInit)="playerInit($event)"
+    ></div>
+  </ng-template>
+</ng-container>

@@ -1,0 +1,31 @@
+<ion-header class="header-modal" translucent>
+  <ion-toolbar>
+    <ion-title>Calendario</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal" fullscreen>
+  <div class="content-modal pt-35">
+    <div class="all-list-calendar">
+      <ul>
+        <li>
+          <a (click)="goCalendarOutlook()">
+            <i class="ico-outlook"></i> Outlook Calendar
+          </a>
+        </li>
+        <li>
+          <a (click)="goCalendarGoogle()">
+            <i class="ico-google"></i> Google Calendar
+          </a>
+        </li>
+        <li>
+          <a (click)="goCalendarYahoo()">
+            <i class="ico-yahoo"></i> Yahoo Calendar
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="all-btn-modal">
+      <button class="btn-solid-main outline" (click)="closeModel()">No agendar</button>
+    </div>
+  </div>
+</ion-content>

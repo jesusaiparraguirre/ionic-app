@@ -1,0 +1,21 @@
+.tag-vivo{
+    color: #fff;
+    background: #D66060;
+}
+
+.item-art{
+    //height: 269px;
+    .inf-item-art {
+        padding-bottom: 54px;
+        ul{
+            margin-bottom: 0px;
+        }
+        h2 a{
+            -webkit-line-clamp: 2;
+        }
+    }
+    figure{
+        max-height: 141px;
+        overflow: hidden;
+    }
+}

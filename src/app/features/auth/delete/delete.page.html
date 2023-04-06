@@ -1,0 +1,32 @@
+<ion-header translucent>
+    <ion-toolbar class="bg-header txt-center">
+        <ion-button class="btn-back btn-left" (click)="backButton()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-button>
+        <p class="title">ELIMINAR MI CUENTA</p>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+    <div>
+        <span class="logo-perfil">
+			<img *ngIf="!!data?.image?.square" [src]="data?.image?.square"/>
+			<svg *ngIf="!data?.image?.real" xmlns="http://www.w3.org/2000/svg" width="102" height="102" viewBox="0 0 102 102">
+				<g id="Grupo_186" data-name="Grupo 186" transform="translate(-134 -97)">
+				  <circle id="Elipse_11" data-name="Elipse 11" cx="51" cy="51" r="51" transform="translate(134 97)" fill="#343434"/>
+				  <path id="user-alt" d="M19,21.375A10.688,10.688,0,1,0,8.313,10.688,10.69,10.69,0,0,0,19,21.375Zm9.5,2.375H24.411a12.92,12.92,0,0,1-10.821,0H9.5A9.5,9.5,0,0,0,0,33.25v1.188A3.563,3.563,0,0,0,3.563,38H34.438A3.563,3.563,0,0,0,38,34.438V33.25A9.5,9.5,0,0,0,28.5,23.75Z" transform="translate(166 129)" fill="#a5a5a5"/>
+				</g>
+		  	</svg>
+		</span>
+        <h2 class="txt-name">{{data.name}} {{data.lastname}}</h2>
+        <h2 class="txt-title-adv">¿Estás seguro(a) que quieres eliminar tu cuenta?</h2>
+        <div class="content-message">
+            <img src="assets/warning.png" alt="">
+            <h2 class="txt-message">Este cambio es permanente</h2>
+            <h2 class="txt-list">1. Se cancelará la suscripción a todos tus cursos, así como sus progresos y certificados.</h2>
+            <h2 class="txt-list">2. Perderás el acceso para siempre.</h2>
+        </div>
+    </div>
+</ion-content>
+<ion-footer class="ion-no-padding ion-no-margin bg-border-footer" style="position: absolute; bottom: 0;">
+    <ion-button expand="block"  class="btn-solid-main large mt" (click)="goDelete()">ELIMINAR CUENTA</ion-button>
+</ion-footer>

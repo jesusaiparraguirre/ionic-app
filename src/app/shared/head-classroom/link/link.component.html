@@ -1,0 +1,8 @@
+<div *ngIf="playerConfig"
+    class="plyr__video-embed"
+    plyr
+    [plyrPlaysInline]="true"
+    [plyrOptions]="options"
+    [plyrCrossOrigin]="true"
+    (plyrInit)="playerInit($event)"
+></div>

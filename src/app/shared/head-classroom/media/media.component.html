@@ -1,0 +1,11 @@
+<ng-container *ngIf="playerConfig">
+  <ng-container *ngIf="playerConfig.isHls; else elseTemplatePlayer">
+    <div class="tag_html_video" plyr [plyrPlaysInline]="true" [plyrSources]="playerConfig.sourceInfo.sources"
+      [plyrDriver]="hlsjsDriver1" [plyrPoster]="playerConfig.sourceInfo.poster" [plyrOptions]="options"
+      (plyrInit)="playerInit($event)"></div>
+  </ng-container>
+  <ng-template #elseTemplatePlayer>
+    <div class="tag_html_video" plyr [plyrPlaysInline]="true" [plyrOptions]="options" (plyrInit)="playerInit($event)">
+    </div>
+  </ng-template>
+</ng-container>

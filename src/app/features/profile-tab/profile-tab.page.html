@@ -1,0 +1,36 @@
+<ion-content class="bg-content" fullscreen>
+	<div class="content-perfil pt-95" *ngIf="!!data">
+		<span class="logo-perfil">
+			<img *ngIf="!!data?.image?.square" [src]="data?.image?.square"/>
+			<svg *ngIf="!data?.image?.real" xmlns="http://www.w3.org/2000/svg" width="102" height="102" viewBox="0 0 102 102">
+				<g id="Grupo_186" data-name="Grupo 186" transform="translate(-134 -97)">
+				  <circle id="Elipse_11" data-name="Elipse 11" cx="51" cy="51" r="51" transform="translate(134 97)" fill="#343434"/>
+				  <path id="user-alt" d="M19,21.375A10.688,10.688,0,1,0,8.313,10.688,10.69,10.69,0,0,0,19,21.375Zm9.5,2.375H24.411a12.92,12.92,0,0,1-10.821,0H9.5A9.5,9.5,0,0,0,0,33.25v1.188A3.563,3.563,0,0,0,3.563,38H34.438A3.563,3.563,0,0,0,38,34.438V33.25A9.5,9.5,0,0,0,28.5,23.75Z" transform="translate(166 129)" fill="#a5a5a5"/>
+				</g>
+		  	</svg>
+		</span>
+		<h2>{{formatHelper.formatValidateText(data.name)}} {{formatHelper.formatValidateText(data.lastname)}}</h2>
+		<span class="tag-mail"><ion-icon name="mail-open-outline"></ion-icon> {{formatHelper.formatValidateText(data.email)}}</span>
+		<ion-list>
+            <ion-item button routerLink="/app/my-meeting" >
+              	<ion-icon name="people-circle-outline"></ion-icon>
+              	<ion-label>
+                	<h3>Mis mentorías</h3>
+              	</ion-label>
+              	<ion-button slot="end">
+				    <ion-icon name="chevron-forward-outline"></ion-icon>
+				</ion-button>
+            </ion-item>
+			<ion-item button routerLink="/app/delete" >
+				<ion-icon name="close-circle-outline"></ion-icon>
+				<ion-label>
+				  <h3>Eliminar cuenta</h3>
+				</ion-label>
+				<ion-button slot="end">
+				  <ion-icon name="chevron-forward-outline"></ion-icon>
+			  </ion-button>
+		  </ion-item>
+        </ion-list>
+		<a (click)="globalService.logout()">Cerrar sesión</a>
+	</div>
+</ion-content>

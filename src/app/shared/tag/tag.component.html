@@ -1,0 +1,7 @@
+<!--IsNew-->
+<span class="tag tag-new" *ngIf="isNew">Nuevo</span>
+<!--IsLive-->
+<span class="tag {{tagStream.tag}}" *ngIf="isLive && tagStream.tag != tagClass.zoom">
+    {{tagStream.name}}
+</span>
+<span class="tag t-zoom" *ngIf="tagStream.tag == tagClass.zoom"><i><img alt="" src="assets/ico-zoom.png"></i></span>

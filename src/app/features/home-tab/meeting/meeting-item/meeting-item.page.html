@@ -1,0 +1,60 @@
+<div class="item-art buy-{{ item.meetingType && ind }}">
+  <figure>
+    <a (click)="toDoAction()">
+      <img [src]="item.image" />
+      <span class="tag-vivo" *ngIf="item.isLive">
+        {{ liveDesc?.Live }}
+      </span>
+    </a>
+  </figure>
+  <div class="inf-item-art">
+    <h2>
+      <a (click)="toDoAction()">{{ item.name }}</a>
+    </h2>
+    <span class="t-autor" *ngIf="item.author.length!=0">Por {{ item.author[0] ? item.author[0].name : "---" }}</span>
+    <ul class="reset-ul">
+      <li *ngIf="!item.isLive && !item.stream">
+        <span class="tag tag-face-to-face">Presencial</span>
+      </li>
+      <li >
+        <span *ngIf="item.meetingType" class="tag tag-package">Paquete</span>
+        <span *ngIf="!item.meetingType" class="tag tag-individual">Individual</span>
+      </li>
+      <li *ngIf="item.stream">
+        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+        <!-- <span class="tag t-zoom" *ngIf="item.stream == streamType.Zoom"><i></i></span>
+        <span class="tag tag-live" *ngIf="item.stream == streamType.Live">Live</span>
+        <span class="tag tag-meet" *ngIf="item.stream == streamType.Meet">Meet</span>
+        <span class="tag tag-jitsi" *ngIf="item.stream == streamType.Jitsi">Jitsi</span> -->
+      </li>
+    </ul>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="!environment.android">
+      <div *ngIf="!item.meetingType && item.isPayment" class="left">
+        <!-- <span>{{item.price?.priceFormat}}</span>
+        <em *ngIf="item.price?.enabledPromotion"
+          >{{ item.price?.pricePromotionFormat }}</em
+        > -->
+        <span class="left">Acceder</span>
+      </div>
+      <!-- <span *ngIf="item.isPayment && !item.subscription?.active" class="left">Comprar</span> -->
+      <span *ngIf="!item.isPayment" class="left">Gratis</span>
+      <span *ngIf="item.subscription?.active" class="left">Acceder</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="environment.android">
+      <div *ngIf="!item.meetingType" class="left">
+        <span
+          >{{ item.price?.priceFormat }}</span
+        >
+        <em *ngIf="item.price?.enabledPromotion"
+          >{{ item.price?.pricePromotionFormat }}</em
+        >
+      </div>
+      <span *ngIf="item.meetingType" class="left">Comprar</span>
+      <span *ngIf="!item.isPayment" class="left">Gratis</span>
+      <ion-icon name="chevron-forward-outline" class="right"></ion-icon>
+    </a>
+
+
+  </div>
+</div>

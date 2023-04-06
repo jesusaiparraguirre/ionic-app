@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <access origin="*" />
+  
+  <feature name="PhotoViewer">
+    <param name="android-package" value="com.sarriaroman.PhotoViewer.PhotoViewer"/>
+  </feature>
+
+  <feature name="Clipboard">
+    <param name="android-package" value="com.verso.cordova.clipboard.Clipboard"/>
+  </feature>
+
+  <feature name="BackgroundMode">
+    <param name="android-package" value="de.appplant.cordova.plugin.background.BackgroundMode"/>
+  </feature>
+  <feature name="BackgroundModeExt">
+    <param name="android-package" value="de.appplant.cordova.plugin.background.BackgroundModeExt"/>
+  </feature>
+
+  <feature name="InAppBrowser">
+    <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
+  </feature>
+
+  <feature name="NativeAudio">
+    <param name="android-package" value="com.rjfun.cordova.plugin.nativeaudio.NativeAudio"/>
+  </feature>
+
+  <feature name="networkinterface">
+    <param name="android-package" value="com.albahra.plugin.networkinterface.networkinterface"/>
+  </feature>
+
+  <feature name="PowerOptimization">
+    <param name="android-package" value="cordova.plugin.PowerOptimization.PowerOptimization"/>
+  </feature>
+
+  <feature name="CDVOrientation">
+    <param name="android-package" value="cordova.plugins.screenorientation.CDVOrientation"/>
+  </feature>
+
+  <feature name="StatusBar">
+    <param name="android-package" value="org.apache.cordova.statusbar.StatusBar"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="Device">
+    <param name="android-package" value="org.apache.cordova.device.Device"/>
+  </feature>
+
+  
+</widget>

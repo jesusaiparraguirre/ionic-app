@@ -1,0 +1,20 @@
+.item-art{
+	//height: 255px;
+    border-radius: 6px;
+}
+.left{
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start !important;
+}
+.left-to{
+    font-size: 15px;
+    color: #ededed;
+    font-weight: 600;
+}
+.t-autor{
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

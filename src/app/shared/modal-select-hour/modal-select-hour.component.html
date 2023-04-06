@@ -1,0 +1,35 @@
+<ion-header class="header-modal" translucent>
+  <ion-toolbar>
+    <ion-title>Seleccionar Hora</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal" fullscreen>
+  <div class="content-modal pt-25" *ngIf="meetingQuotes">
+  	<span class="text-fech-h"><ion-icon name="calendar-outline"></ion-icon> {{meetingQuotes.date}}</span>
+  	<div class="b-list-fech">
+  		<h3 *ngIf="quotesMorning.length">Mañana</h3> 
+  		<ul *ngIf="quotesMorning.length">
+  			<li *ngFor="let item of quotesMorning; let i = index;">
+  				<div class="event-resv" *ngIf="optionSelected.hourIni != item[1].hourIni" (click)="selected(item)">{{item[1].hourIni}}</div>
+                <div class="resv-btn" *ngIf="optionSelected.hourIni == item[1].hourIni">
+                    <span>{{item[1].hourIni}}</span>
+                    <button (click)="openIonModalLinkPago()" class="btn-l-resv">Reservar</button>
+                </div> 
+  			</li>
+  		</ul>
+  		<h3 *ngIf="quotesLate.length">Tarde</h3>
+  		<ul *ngIf="quotesLate.length">
+  			<li *ngFor="let item of quotesLate">
+  				<div class="event-resv" *ngIf="optionSelected.hourIni != item[1].hourIni" (click)="selected(item)">{{item[1].hourIni}}</div>
+                <div class="resv-btn" *ngIf="optionSelected.hourIni == item[1].hourIni">
+                    <span>{{item[1].hourIni}}</span>
+                    <button (click)="openIonModalLinkPago()" class="btn-l-resv">Reservar</button>
+                </div>
+  			</li>
+  		</ul>
+  	</div>
+  	<div class="all-btn-modal">
+      <button class="btn-solid-main outline" (click)="closeModel()">No seleccionar</button>
+    </div>
+  </div>
+</ion-content>

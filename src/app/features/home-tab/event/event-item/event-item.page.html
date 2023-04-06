@@ -1,0 +1,45 @@
+<div class="item-art buy-course">
+  <figure>
+    <a (click)="toDoAction()">
+      <img [src]="item.image" />
+      <span class="tag-vivo" *ngIf="item.isLive">
+        {{ liveDesc?.Live }}
+      </span>
+      <span class="tag-prec" *ngIf="!item.isLive">
+        {{ liveDesc?.FaceToFace }}
+      </span>
+    </a>
+  </figure>
+  <div class="inf-item-art">
+    <h2>
+      <a (click)="toDoAction()">{{ item.name }}</a>
+    </h2>
+    <span class="t-autor" *ngIf="item?.author.length!=0">Por {{ item?.author[0] ? item?.author[0].name : "---" }}</span>
+    <ul class="reset-ul">
+      <li class="date">
+        <ion-icon name="calendar-outline"></ion-icon>
+        {{ item.date ? item.date : "--/--/--" }}
+      </li>
+      <li *ngIf="item.stream">
+        <app-tag [description]="item.liveDesc" [stream]="item.stream" [isLive]="item.isLive"></app-tag>
+      </li>
+      <li *ngIf="!item.isLive">
+        <ion-icon name="location"></ion-icon>
+        {{ item?.city ? item?.city : "---" }}
+      </li>
+    </ul>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="!environment.android">
+      <span *ngIf="!item.subscription?.active && item.isPayment" class="left">Acceder</span>
+      <span *ngIf="item.subscription?.active" class="left">Reanudar</span>
+      <span *ngIf="!item.subscription?.active && !item.isPayment" class="left">Gratis</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+    <a (click)="toDoAction()" class="btn-href-art" *ngIf="environment.android">
+      <span *ngIf="!item.subscription?.active && item.isPayment" class="left">Comprar</span>
+      <span *ngIf="item.subscription?.active || !item.isPayment" class="left">Reanudar</span>
+      <span *ngIf="!item.subscription?.active && !item.isPayment" class="left">Gratis</span>
+      <!-- <ion-icon name="chevron-forward-outline" class="right"></ion-icon> -->
+    </a>
+
+  </div>
+</div>

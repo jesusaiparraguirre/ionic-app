@@ -1,0 +1,72 @@
+<ion-header class="header-modal" translucent>
+  <ion-toolbar>
+    <ion-title>Recursos</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal" fullscreen>
+  <div class="content-modal pt-35">
+    <div class="tab-recursos">
+      <ion-segment (ionChange)="segmentChanged($event)" class="nav-course" value="tareas">
+        <ion-segment-button value="tareas">
+          <ion-label>
+            Tareas
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="materiales">
+          <ion-label>
+            Materiales
+          </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="esquemas">
+          <ion-label>
+            Esquemas
+          </ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+    <div class="block-content-recursos">
+      <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int" *ngIf="segment === 'tareas'">
+        <div class="block-body-tab" *ngIf="data.attachments.task.length">
+          <p *ngFor="let item of data.attachments.task; let i = index;">{{i + 1}}. {{item}}</p>
+        </div>
+        <div *ngIf="!data.attachments.task.length" style="height: 50vh;" >
+          <div class="span-message">Aún no contamos con registros</div>
+        </div>
+      </ion-list>
+      <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int" *ngIf="segment === 'materiales'">
+        <div class="block-body-tab">
+          <div class="w-full block-download">
+            <div *ngFor="let item of materials" class="item-download-l w-full flex justify-between items-center p-12">
+              <div class="flex items-center text-download">
+                <ion-icon name="document-outline"></ion-icon>
+                <span>{{item.name}}</span>
+              </div>
+              <div class="flex items-center">
+                <button (click)="downloadfile(item)" type="button" class="btn btn-download-d"><ion-icon name="cloud-download-outline"></ion-icon></button>
+              </div>
+            </div>
+            <div *ngIf="!materials.length" style="height: 50vh;" >
+              <div class="span-message">Aún no contamos con registros</div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+      <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int" *ngIf="segment === 'esquemas'">
+        <div class="block-body-tab">
+          <div class="w-full">
+            <figure *ngFor="let item of schemes">
+              <!-- <img [src]="sanitizer.bypassSecurityTrustResourceUrl(item.uri)" alt=""> -->
+              <img (click)="openImage(item.download)" [src]="item.uri"/>
+            </figure >
+            <div *ngIf="!schemes.length" style="height: 50vh;" >
+              <div class="span-message">Aún no contamos con registros</div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+    </div>
+    <div class="all-btn-modal">
+      <button class="btn-solid-main outline" (click)="closeModel()">Volver</button>
+    </div>
+  </div>
+</ion-content>

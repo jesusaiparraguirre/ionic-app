@@ -1,0 +1,124 @@
+.image-article{
+	position: relative;
+	margin-bottom: 12px;
+	a{
+		display: block;
+		&:before{
+			content: "";
+			background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+			background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+			background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+		img{
+			width: 100%;
+		}
+		.video-campaign{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			text-align: center;
+		    width: 65px;
+		    height: 50px;
+		    margin-top: -25px;
+		    margin-left: -32px;
+			ion-icon{
+				font-size: 30px;
+				color: #FFFFFF;
+			}
+			span{
+				display: block;
+				font-size: 12px;
+				color: #FFFFFF;
+			}
+		}
+	}
+}
+.content-article{
+	padding: 0 20px;
+	.b-title-article{
+		margin-bottom: 20px;
+		width: 100%;
+		h1{
+			font-size: 18px;
+			color: #ECECEC;
+			font-weight: 600;
+			margin-bottom: 5px;
+			margin-top: 6px;
+		}
+		.t-autor{
+			display: block;
+			color: #BDBDBD;
+			font-size: 12px;
+			margin-bottom: 5px;
+		}
+		p{
+			margin-top: 20px;
+			line-height: 140%;
+			color: #B6B6B6;
+			font-size: 14px;
+		}
+	}
+	
+	hr{
+		border-top: 1px solid #272727;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.b-list-course{
+		width: 100%;
+		ul{
+			list-style: none;
+			padding-left: 0;
+			margin: 0;
+			li{
+				font-size: 14px;
+				color: #B6B6B6;
+				position: relative;
+				padding-left: 22px;
+				margin-bottom: 10px;
+				&:last-child{
+					margin-bottom: 0;
+				}
+				ion-icon{
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+			}
+		}
+	}
+	.b-ticket{
+		margin-bottom: 20px;
+	}
+	.b-term{
+		margin-bottom: 20px;
+		p{
+			line-height: 140%;
+			font-size: 13px;
+			color: #7E7E7E;
+		}
+	}
+	.b-benefit{
+		ul{
+			list-style: none;
+			padding-left: 0;
+			margin-bottom: 0;
+			li{
+				padding: 18px 15px;
+				background: #262626;
+				font-size: 14px;
+				color: #C1C1C1;
+				margin-bottom: 5px;
+				span{
+					font-weight: 900;
+				}
+			}
+		}
+	}
+}

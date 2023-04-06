@@ -1,0 +1,83 @@
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.tab-recursos{
+	.nav-course{
+		display: flex;
+		padding: 0;
+		ion-segment-button{
+			width: 33%;
+			font-size: 16px;
+    		color: #CCCCCC;
+			margin-right: 0;
+		}
+	}
+}
+.block-content-recursos{
+	.custom-block-list{
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+.block-body-tab{
+	padding: 20px 0;
+	p{
+		font-size: 13px;
+		color: #B9B9B9;
+		line-height: 140%;
+		margin-bottom: 15px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+	figure{
+		margin: 0;
+		margin-bottom: 12px;
+		border-radius: 4px;
+		overflow: hidden;
+		img{
+			width: 100%;
+		}
+	}
+}
+.block-download .text-download{
+	font-size: 15px;
+    font-weight: 500;
+    color: #B9B9B9;
+}
+.block-download .text-download ion-icon{
+	margin-right: 8px;
+}
+.block-download .btn-download-d{
+	color: #B9B9B9;
+	font-size: 17px;
+	padding: 0;
+}
+.block-download .btn-download-d:hover{
+	color: #EFEFEF;
+}
+.block-download .item-download-l{
+	border-bottom: 1px solid #373737;
+	padding-left: 0;
+	padding-right: 0;
+}
+.block-download .item-download-l:last-child{
+	border-bottom: 0;
+}
+

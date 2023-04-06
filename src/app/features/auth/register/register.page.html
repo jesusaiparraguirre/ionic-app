@@ -1,0 +1,107 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="block-form-session">
+	<ion-header translucent>
+        <ion-toolbar class="bg-header">
+            <ion-button class="btn-back" (click)="backButton()">
+                <ion-icon name="return-up-back-outline"></ion-icon>
+            </ion-button>
+        </ion-toolbar>
+    </ion-header>
+	<ion-content class="bg-content" fullscreen>
+		<div class="content-register">
+			<h2 class="title-block-login">Registro</h2>
+			<ion-item class="custom-item-input">
+				<span class="ico-input">
+					<ion-icon name="person"></ion-icon>
+				</span>		  
+				<ion-input class="input-custom" type="text" placeholder="Nombres" formControlName="name"></ion-input>
+			</ion-item>
+			<div class="error-message">
+				<span *ngIf="f.name.value == '' && f.name.hasError && f.name.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+			</div>
+			<ion-item class="custom-item-input">
+				<span class="ico-input">
+					<ion-icon name="person"></ion-icon>
+				</span>		  
+				<ion-input class="input-custom" type="text" placeholder="Apellidos" formControlName="lastname"></ion-input>
+			</ion-item>
+			<div class="error-message">
+				<span *ngIf="f.lastname.value == '' && f.lastname.hasError && f.lastname.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+			</div>
+			<ion-item class="custom-item-input">
+				<span class="ico-input">
+					<ion-icon name="mail"></ion-icon>
+				</span>		  
+				<ion-input class="input-custom" type="text" placeholder="Correo" formControlName="email"></ion-input>
+			</ion-item>
+			<div class="error-message">
+				<span *ngIf="f.email.value == '' && f.email.hasError && f.email.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+				<span *ngIf="f.email.hasError && f.email.hasError('pattern')">{{ messages.FORMAT_EMAIL }}</span>
+			</div>
+			<!-- <ion-item class="custom-item-input">
+				<span class="ico-input">
+					<ion-icon name="call"></ion-icon>
+				</span>
+				<ion-input class="input-custom" type="phone" placeholder="Teléfono" formControlName="phone"></ion-input>
+			</ion-item> -->
+			
+			<ion-item class="custom-item-input">
+				<span class="ico-input">
+					<ion-icon name="lock-open"></ion-icon>
+				</span>		  
+				<ion-input class="input-custom" [type]="typePassword" placeholder="Contraseña" formControlName="password"></ion-input>
+				<span (click)="toggleShow()">
+					<ion-icon name="eye-outline" class="ico-input" *ngIf="typePassword == 'password'"></ion-icon>
+					<ion-icon name="eye-off-outline"  class="ico-input" *ngIf="typePassword == 'text'"></ion-icon>
+				</span>		  
+			</ion-item>
+			<div class="error-message">
+				<span *ngIf="f.password.value == '' && f.password.hasError && f.password.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+				<span *ngIf="f.password.hasError && f.password.hasError('minlength')">{{ messages.FORMAT_PASSWORD }}</span>
+			</div>
+			
+			<ion-item class="custom-item-input mb-10" *ngIf="!onePartner">
+                <ion-select #select id="selected-login" placeholder="[ Elige partner]" icon="" formControlName="partnerId" class="label-select holder-select"
+                    appNoArrow>
+                    <ion-select-option *ngFor="let partner of partners" [value]="partner.id">{{partner.name}}
+                    </ion-select-option>
+                </ion-select>
+                <!-- <div class="ico-select-c" (click)="select.open()">
+                    <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+                </div> -->
+            </ion-item>
+			<div class="error-message" *ngIf="!onePartner">
+				<span *ngIf="f.partnerId.value == '' && f.partnerId.hasError && f.partnerId.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+				<!-- <span *ngIf="f.contrasena.hasError && f.contrasena.hasError('pattern')">{{ messages.FORMAT_PASSWORD }}</span> -->
+			</div>
+
+
+			<ion-item class="custom-item-input mb-10" *ngIf="e.android">
+				<ion-select placeholder="[País*]" class="label-select holder-select" formControlName="country"
+				  (ngModelChange)="changeCountry()" appNoArrow>
+				  <ion-select-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+		
+			<div class="error-message" *ngIf="e.android">
+				<span *ngIf="f.country.value == '' && f.country.hasError && f.country.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+			</div>
+
+			<ion-item class="custom-item-input" *ngIf="e.android">
+				<div class="ico-input" style="display: flex; align-items: center;">
+				  <img *ngIf="country" [src]="country.flag" height="16px"/>
+				  <span style="margin-left: 5px;">{{this.registerForm.get('phoneCode').value}}</span>
+				</div>
+				<ion-input class="input-custom" type="number" formControlName="phone" placeholder="Teléfono"
+				  style="padding-left: 70px !important;" (keyup.enter)="onSubmit()"></ion-input>
+			  </ion-item>
+				
+			<div class="error-message" *ngIf="e.android">
+				<span *ngIf="f.phone.value == '' && f.phone.hasError && f.phone.hasError('required')">{{ messages.FIELD_EMPTY }}</span>
+				<span *ngIf="f.phone.hasError && f.phone.hasError('pattern')">{{ messages.FORMAT_PHONE }}</span>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer class="ion-no-padding ion-no-margin bg-border-footer" style="position: absolute; bottom: 0;">
+		<ion-button expand="block" type="submit" class="btn-solid-main large">Registrar</ion-button>
+	</ion-footer>
+</form>

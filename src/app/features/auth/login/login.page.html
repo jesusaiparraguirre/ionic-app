@@ -1,0 +1,51 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="block-form-session block-form-session-list">
+    <ion-header translucent>
+        <ion-toolbar class="bg-header">
+            <ion-button class="btn-back" (click)="backButton()">
+                <ion-icon name="return-up-back-outline"></ion-icon>
+            </ion-button>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content class="bg-content" fullscreen>
+        <div class="content-login pt-35">
+            <h2 class="title-block-login">Iniciar sesión</h2>
+            <ion-item class="custom-item-input mb-10" *ngIf="!onlyPartner">
+                <ion-select #select id="selected-login" placeholder="[ Elige ]" icon="" formControlName="partner" class="label-select holder-select"
+                    appNoArrow>
+                    <ion-select-option *ngFor="let partner of partners" [value]="partner.id">{{partner.name}}
+                    </ion-select-option>
+                </ion-select>
+                <div class="ico-select-c" (click)="select.open()">
+                    <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+                </div>
+            </ion-item>
+            <div class="error-message" *ngIf="f.partner.errors">
+                <span *ngIf="(!f.partner.value && submitted) || (f.partner.value == '' && f.email.hasError && f.partner.hasError('required'))">Este campo es requerido.</span>
+            </div>
+            <ion-item class="custom-item-input mb-10">
+                <ion-input formControlName="email" class="input-custom" type="email" placeholder="Email"
+                    [disabled]="true"></ion-input>
+            </ion-item>
+            <div class="error-message" *ngIf="f.email.errors">
+                <span *ngIf="(!f.email.value && submitted) || (f.email.value == '' && f.email.hasError('required'))">{{ messages.FIELD_EMPTY }}</span>
+                <span *ngIf="f.email.hasError('pattern')">{{ messages.FORMAT_EMAIL }}</span>
+            </div>
+            <ion-item class="custom-item-input b-password">
+                <ion-input class="input-custom" formControlName="password" [type]="type" placeholder="Password">
+                </ion-input>
+                <span (click)="toggleShow()">
+                    <ion-icon name="eye-outline" *ngIf="type == 'password'" color="light"></ion-icon>
+                    <ion-icon name="eye-off-outline" *ngIf="type == 'text'" color="light"></ion-icon>
+                </span>
+            </ion-item>
+            <div class="error-message" *ngIf="f.password.errors">
+                <span *ngIf="(!f.password.value && submitted) || (f.password.value == '' && f.password.hasError('required'))">{{ messages.FIELD_EMPTY }}</span>
+                <span *ngIf="f.password.hasError('minlength')">{{ messages.MIN_FIVE_CHARACTERS }}</span>
+            </div>
+            <div class="span-forgot" (click)="recoverPassword()">Olvidé mi contraseña</div>
+        </div>
+    </ion-content>
+    <ion-footer class="ion-no-padding ion-no-margin bg-border-footer" style="position: absolute; bottom: 0;">
+        <ion-button expand="block" type="submit" class="btn-solid-main large">Continuar</ion-button>
+    </ion-footer>
+</form>

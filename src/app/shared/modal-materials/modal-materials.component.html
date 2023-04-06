@@ -1,0 +1,28 @@
+<ion-header class="header-modal" translucent>
+  <ion-toolbar>
+    <ion-title>Materiales</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal" fullscreen>
+  <div class="content-modal pt-35">
+    <div class="w-full block-download">
+      <div *ngFor="let item of materials" class="item-download-l w-full flex justify-between items-center p-12">
+        <div class="flex items-center text-download">
+          <ion-icon name="document-outline"></ion-icon>
+          <span>{{item.name}}</span>
+        </div>
+        <div class="flex items-center">
+          <button (click)="downloadfile(item)" type="button" class="btn btn-download-d"><ion-icon name="cloud-download-outline"></ion-icon></button>
+          <!-- <a download [href]=item.uri type="button" class="btn btn-download-d"><ion-icon name="cloud-download-outline"></ion-icon></a> -->
+        </div>
+      </div>
+      <div *ngIf="!materials.length" style="height: 50vh;" >
+        <div class="span-message">Aún no contamos con registros</div>
+      </div>
+    </div>
+    <div class="all-btn-modal">
+      <button class="btn-solid-main outline" (click)="closeModel()">Volver</button>
+    </div>
+  </div>
+</ion-content>
+

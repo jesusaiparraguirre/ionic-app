@@ -1,0 +1,158 @@
+<div>
+  <ion-toolbar class="bg-header">
+    <ion-button class="btn-back" (click)="location.back()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title class="title-page">Evento</ion-title>
+  </ion-toolbar>
+</div>
+<ion-content class="bg-content-page" fullscreen>
+  <div class="image-article" *ngIf="event">
+    <img *ngIf="!event.video" [src]="event.image.real" />
+    <iframe *ngIf="event.video" [src]="sanitizer.bypassSecurityTrustResourceUrl(event.video)" allow="autoplay;"
+      frameborder="0" allowfullscreen width="100%"></iframe>
+  </div>
+  <div class="content-article" *ngIf="event">
+    <div class="b-title-article">
+      <span [ngClass]="{'tag-prec': !event.isLive, 'tag-vivo': event.isLive}">{{event.liveDesc}}</span>
+      <h1>{{ event.name }}</h1>
+      <span class="tag t-autor" *ngIf="event.author && event.author.length">Por {{ listAuthors(event.author) }}</span>
+      <app-tag *ngIf="event.stream" [description]="event.liveDesc" [stream]="event.stream" [isLive]="event.isLive">
+      </app-tag>
+      <p *ngIf="event.detailComplete" [innerHTML]="event.detailComplete"></p>
+    </div>
+    <hr *ngIf="event.location" />
+    <div class="b-list-article-t" *ngIf="event.location">
+      <ul>
+        <li *ngIf="event.location.date">
+          <ion-icon name="calendar-outline"></ion-icon> {{ event.location.date
+          }}
+        </li>
+        <li *ngIf="event.location.hourIni">
+          <ion-icon name="time-outline"></ion-icon> Inicia: {{
+          event.location.hourIni }}
+        </li>
+        <li *ngIf="event.location.hourEnd">
+          <ion-icon name="time-outline"></ion-icon> Finaliza: {{
+          event.location.hourEnd }}
+        </li>
+        <li *ngIf="event.location.country">
+          <i class="ico-city"><img width="13" height="13" [src]="event.location.flag" alt="" /></i>
+          {{ event.location.city }}, {{ event.location.country }}
+        </li>
+        <li *ngIf="event.location.address">
+          <ion-icon name="navigate-outline"></ion-icon> {{
+          event.location.address }}
+        </li>
+      </ul>
+    </div>
+    <!--activity-->
+    <hr *ngIf="event.activity && event.activity.length" />
+    <div class="b-cronograma" *ngIf="event.activity && event.activity.length">
+      <h3 class="title-block-c">Cronograma</h3>
+      <div class="content-list-sesion">
+        <div aria-expanded="true" class="accordion item-list-primary" data-multiselect="disabled"
+          *ngFor="let activity of event.activity; let i = index">
+          <div class="item-list-title accordion__head">
+            <h3>{{ activity.day }}</h3>
+            <ion-icon name="chevron-up-outline" class="arrow-l arrow-up"></ion-icon>
+            <ion-icon name="chevron-down-outline" class="arrow-l arrow-down"></ion-icon>
+          </div>
+          <div class="accordion__container">
+            <div class="accordion__body">
+              <div class="block-item-sub">
+                <ul>
+                  <li *ngFor="let item of activity.data">
+                    {{ item.name }} {{ item.detail }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--schedule-->
+    <hr *ngIf="event.schedule && event.schedule.length" />
+    <div class="b-cronograma" *ngIf="event.schedule && event.schedule.length">
+      <h3 class="title-block-c">Cronograma</h3>
+      <div class="content-list-sesion">
+        <div aria-expanded="true" class="accordion item-list-primary" data-multiselect="disabled"
+          *ngFor="let activity of event.schedule; let i = index">
+          <div class="item-list-title accordion__head">
+            <h3>{{ activity.day }} - {{activity.date}}</h3>
+            <ion-icon name="chevron-up-outline" class="arrow-l arrow-up"></ion-icon>
+            <ion-icon name="chevron-down-outline" class="arrow-l arrow-down"></ion-icon>
+          </div>
+          <div class="accordion__container" *ngIf="activity.data && activity.data.length">
+            <div class="accordion__body">
+              <div class="block-item-sub">
+                <ul>
+                  <li *ngFor="let item of activity.data">
+                    <!-- {{ item.name }} --> {{ item.hour }}  {{ item.detail ? '- ' + item.detail : '' }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr *ngIf="event.isPayment && !!event?.isTicket && event?.ticket?.length" />
+    <!--es un evento presencial-->
+    <div class="b-ticket" *ngIf="event.isPayment && event?.isTicket && event?.ticket?.length && environment.android">
+      <h3 class="title-block-c">Seleccionar tickets</h3>
+      <div class="item-ticket t-one" *ngFor="let item of event.ticket; let i = index;"
+        [ngClass]="{'t-one': i%3 == 1,'t-two': i%3 == 2,'t-three': i%3 == 0}">
+        <div class="inf-ticket">
+          <h4>{{item.title}}</h4>
+          <h2 class="mb-15">
+            {{item.price.priceFormat}}
+            <!-- {{sumPriceTickets(item.price)}} {{event.currency}} -->
+          </h2>
+          <ul *ngFor="let pri of item.price">
+            <li *ngIf="pri.name">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>{{pri.name}}
+            </li>
+          </ul>
+          <p *ngIf="item.benefit && item.benefit.length">
+            ¿Qué incluye tu membresía?
+          </p>
+          <ul *ngFor="let ben of item.benefit">
+            <li>
+              <ion-icon name="checkmark-circle-outline"></ion-icon> {{ben}}
+            </li>
+          </ul>
+        </div>
+        <ion-button (click)="openIonModalLinkPago(item.id)"> Comprar ticket </ion-button>
+      </div>
+    </div>
+    <!--evenvo en vivo-->
+    <div class="b-ticket" *ngIf="event.isPayment && !event?.isTicket && event?.price && environment.android">
+      <h3 class="title-block-c">Seleccionar ticket</h3>
+      <div class="item-ticket t-one" *ngFor="let item of event.price; let i = index;"
+        [ngClass]="{'t-one': i%3 == 1,'t-two': i%3 == 2,'t-three': i%3 == 0}">
+        <div class="inf-ticket">
+          <h4>{{item.name}}</h4>
+          <h2>{{item.price.priceFormat}}</h2>
+          <h3 *ngIf="item.enabledPromotion">
+            {{item.pricePromotionFormat}}
+          </h3>
+          <p *ngIf="item?.benefits && item?.benefits?.length">
+            ¿Qué incluye tu membresía?
+          </p>
+          <ul *ngFor="let ben of item.benefits">
+            <li>
+              <ion-icon name="checkmark-circle-outline"></ion-icon> {{ben}}
+            </li>
+          </ul>
+        </div>
+        <ion-button (click)="openIonModalLinkPago(item.id)"> Comprar ticket </ion-button>
+      </div>
+    </div>
+    <div class="b-term" *ngIf="event.termsConditions">
+      <h3 class="title-block-c">Términos y condiciones</h3>
+      <p>{{ event.termsConditions }}</p>
+    </div>
+  </div>
+</ion-content>

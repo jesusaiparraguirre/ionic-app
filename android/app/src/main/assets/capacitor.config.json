@@ -1,0 +1,23 @@
+{
+	"appId": "com.leadgods.app.desa",
+	"appName": "Leadgods",
+	"bundledWebRuntime": false,
+	"webDir": "www",
+	"server": {
+		"allowNavigation": [
+			"http://*/*",
+			"https://*/*"
+		]
+	},
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 3000,
+			"launchAutoHide": true,
+			"backgroundColor": "#00b0ca",
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP",
+			"splashFullScreen": true,
+			"splashImmersive": true
+		}
+	}
+}

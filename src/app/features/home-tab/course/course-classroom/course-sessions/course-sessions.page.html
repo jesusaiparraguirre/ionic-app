@@ -1,0 +1,105 @@
+<div class="content-list-session content-list-course">
+  <!-- mb-0-->
+  <div *ngFor="let item of dataSessions; let i = index" class="item-list-primary">
+    <div class="flex items-start justify-between cursor-pointer px-16 relative"
+      [ngClass]="{ 'dripActiveItemSession': item.status == false, 'activeItemSession': item.key == keySelect }">
+      <div class="flex item-acc">
+        <div class="flex flex-col items-center w-12 min-w-12 mr-6">
+          <!-- <div class="beffore-line line-top line-card trans-in-out h-full bg-base-line w-1"></div> -->
+          <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 12 12">
+            <circle stroke="#707070" fill="transparent" stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+              style="opacity: 1;"></circle>
+            <circle class="progress-ring--ring" stroke="var(--color-secondary-light, #E35758)" fill="transparent"
+              stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+              [ngStyle]="{'stroke-dashoffset': item.user && item.user.viewed ? 0 : 99}"></circle>
+          </svg>
+          <!-- <div class="after-line line-card trans-in-out h-full bg-base-line w-1"></div> -->
+        </div>
+
+        <div class="card-acc flex flex-col mr-12 pb-12 trans-in-out">
+          <!-- check status session -->
+          <ng-container *ngIf="item.status; else elseTemplateStatus">
+            <div [id]="item.key" class="flex" (click)="toChooseSession(item)">
+              <div class="flex flex-col">
+                <ion-icon *ngIf="item.mediaType == 'upload'" class="font-14-ico" name="videocam"></ion-icon>
+                <ion-icon *ngIf="item.mediaType == 'link'" class="font-14-ico" name="link"></ion-icon>
+                <i class="ico-img" *ngIf="item.mediaType == 'none' || item.mediaType == 'image'"><img
+                    src="assets/img-not.png" alt=""></i>
+                <img src="assets/en-vivo-not.svg" class="i-live" *ngIf="item.mediaType == 'live'" alt="">
+                <ion-icon name="volume-medium" *ngIf="item.mediaType == 'audio'" class="font-14-ico"></ion-icon>
+              </div>
+              <div>
+                <h3 class="trans-in-out txt-sessions"> {{item.title}}</h3>
+              </div>
+            </div>
+            <ul class="reset-ul">
+              <ng-container *ngIf="item.live ; else elseTemplateSessionLive">
+                <ng-container *ngIf="item.streamState == 'culminate'; else elseTemplateTransmited">
+                  <li>
+                      <span class="tag-calendar"> Finalizado </span>
+                  </li>
+                </ng-container>
+                <ng-template #elseTemplateTransmited>
+                  <li *ngIf="item.live">
+                    <span *ngIf="item.streamState != 'start'" class="text-one">{{item.streamStateDesc}}</span>
+                    <span *ngIf="item.streamState == 'start'" class="tag-prog">En curso</span>
+                  </li>
+                  <li *ngIf="item.dateStream"><span class="tag-calendar">
+                      <ion-icon class="font-13-ico ios hydrated" name="calendar-outline" ng-reflect-name="calendar-outline"
+                        role="img" aria-label="calendar outline"></ion-icon> {{formatHelper.formatDateLong(item.dateStream,
+                      item.timezone)}}
+                    </span></li>
+                  <li *ngIf="item.live && item.stream">
+                    <app-tag [stream]="item.stream" [isLive]="item.live"></app-tag>
+                  </li>
+                </ng-template>
+              </ng-container>
+            <ng-template #elseTemplateSessionLive>
+              <li *ngIf="item.duration">
+                <span class="text-one">
+                  <ion-icon class="font-13-ico" name="time-outline"></ion-icon> {{item.duration}}
+                </span>
+              </li>
+            </ng-template>
+            </ul>
+            <!-- <a href="https://djgew9bi99tda.cloudfront.net/media/clase/11727/generic240p/6148ed764ee0f.MP4"
+            download="GRABADO.mp4">
+            Grabado.mp4
+          </a> -->
+            <!-- <button class="btn-file" (click)="openFolder()">
+            <ion-icon name="folder-open"></ion-icon>
+          </button> -->
+            <!-- <button class="btn-download" (click)="getDownloadUrl(item.key)">
+            <ion-icon name="download"></ion-icon>
+          </button> -->
+            <button *ngIf="item.existMaterial" type="button" class="btn-rec" (click)="toModalResources(item)">Recursos
+            </button>
+          </ng-container>
+          <ng-template #elseTemplateStatus>
+            <div class="flex" (click)="toChooseSession(item)">
+              <div class="flex flex-col">
+                <ion-icon *ngIf="item.mediaType == 'upload'" class="font-14-ico" name="videocam"></ion-icon>
+                <ion-icon *ngIf="item.mediaType == 'link'" class="font-14-ico" name="link"></ion-icon>
+                <i class="ico-img" *ngIf="item.mediaType == 'none' || item.mediaType == 'image'"><img
+                    src="assets/img-not.png" alt=""></i>
+                <img src="assets/en-vivo-not.svg" class="i-live" *ngIf="item.mediaType == 'live'" alt="">
+                <ion-icon name="volume-medium" *ngIf="item.mediaType == 'audio'" class="font-14-ico"></ion-icon>
+              </div>
+              <div>
+                <h3 class="trans-in-out txt-sessions"> {{item.title}}</h3>
+              </div>
+            </div>
+            <ul class="reset-ul">
+              <li *ngIf="item.dateAvailable">
+                <span class="text-one date">
+                  <ion-icon class="font-13-ico" name="time-outline"></ion-icon> {{item.dateAvailable}}
+                </span>
+              </li>
+              <!-- <a *ngIf="!item.dripState" [attr.href]="item.backUrl" type="button" class="btn-rec">Adquirir</a> -->
+            </ul>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

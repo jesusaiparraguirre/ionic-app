@@ -1,0 +1,314 @@
+.btn-solid-warning{
+    width: 130px;
+}
+/*Page aula*/
+.reset-ul{
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.block-page-aula{
+    padding: 25px;
+}
+.block-content-aula{
+	overflow: hidden;
+    overflow-y: scroll;
+}
+.inner-q-qualify>h4{
+	text-align: center;
+	font-size: 22px;
+	color: #EFEFEF;
+	font-weight: 500;
+	margin-bottom: 10px;
+    margin-top: 0;
+}
+.inner-q-qualify>p{
+	text-align: center;
+	margin-bottom: 28px;
+	font-size: 14px;
+	color: #B9B9B9;
+	line-height: 140%;
+}
+.list-question{
+  	margin-bottom: 15px;
+  	border-radius: 4px;
+  	background: #1B1C1E;
+  	padding: 15px;
+  	text-align: center;
+}
+.list-question p{
+    font-size: 14px;
+    color: #CCCCCC;
+    margin-bottom: 8px;
+    text-align: center;
+    margin-top: 0;
+}
+.list-question span{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #6A6A6E;
+    margin-right: 12px;
+}
+.list-question span:last-child{
+    margin-right: 0;
+}
+.list-question .star-list{
+    margin-right: 10px;
+    display: inline-flex;
+}
+.list-question .star-list ion-icon{
+    font-size: 20px;
+    color: #FEC964;
+    cursor: pointer;
+    margin-right: 6px;
+}
+.list-question .star-list icon-icon:last-child{
+    margin-right: 0;
+}
+.list-question .star-list .ico-off{
+    color: #6A6A6E;
+}
+.t-comment-c{
+  	position: relative;
+}
+.t-comment-c textarea{
+    border: 0;
+    border-radius: 4px;
+    background: #1B1C1E;
+    min-height: 75px;
+    font-size: 16px;
+    width: 100%;
+    padding: 8px;
+    color: #CCCCCC;
+    margin-bottom: 12px;
+    outline: 0;
+}
+.t-comment-c textarea::-webkit-input-placeholder {
+  	font-size: 14px;
+  	color: #6A6A6E;
+}
+.t-comment-c textarea::-moz-placeholder {
+  	font-size: 14px;
+  	color: #6A6A6E;
+}
+.t-comment-c textarea:-ms-input-placeholder {
+  	font-size: 14px;
+  	color: #6A6A6E;
+}
+.t-comment-c textarea:-moz-placeholder {
+  	font-size: 14px;
+  	color: #6A6A6E;
+}
+.text-right{
+    text-align: right;
+}
+.t-comment-c .btn-l-primary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-right: 0px;
+    vertical-align: top;
+    font-size: 14px;
+    color: #0B0B0B;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 4px;
+    background: #FEC964;
+    width: 130px;
+}
+.t-comment-c .btn-l-primary:active,
+.t-comment-c .btn-l-primary:hover,
+.t-comment-c .btn-l-primary:focus{
+	opacity: 0.9;
+}
+.t-comment-c .btn-l-primary:focus{
+	opacity: 0.9;
+}
+.t-comment-c .btn-l-primary:disabled,
+.t-comment-c .btn-l-primary[disabled]{
+  background: #f1d6a3;
+}
+.line-aula{
+	border-top: 1px solid #28292B;
+	margin-bottom: 32px;
+	margin-top: 32px;
+}
+.cnt-tab-assess{
+	
+}
+.cnt-tab-assess>h3{
+	text-align: center;
+	font-weight: 500;
+	color: #EFEFEF;
+	margin-bottom: 20px;
+	font-size: 20px;
+    margin-top: 0;
+}
+.num-calf{
+    margin-bottom: 20px;
+}
+.text-num-calf{
+    margin-bottom: 12px;
+}
+.text-num-calf em{
+    text-align: center;
+    font-style: normal;
+    font-size: 70px;
+    color: #FFC541;
+    font-weight: 700;
+    line-height: 100%;
+    display: block;
+}
+.ico-start-calf{
+    text-align: center;
+}
+.ico-start-calf .start-calf{
+    margin-bottom: 3px;
+}
+.num-calf .start-calf ion-icon{
+    margin-right: 5px;
+    color: #FEC541;
+    font-size: 15px;
+}
+.block-list-calf-g{
+  	position: relative;
+}
+.block-list-calf-g .start-calf{
+    width: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.block-list-calf-g .all-block-t{
+    padding-left: 150px;
+}
+.block-calf-star{
+    margin-bottom: 35px;
+}
+.block-calf-star li{
+    margin-bottom: 8px;
+}
+.block-calf-star li .start-calf ion-icon{
+    color: #FEC541;
+    font-size: 16px;
+    margin-right: 3px;
+}
+.progress-p{
+  	background: #fff;
+  	width: 100%;
+  	height: 11px;
+  	border-radius: 20px;
+  	overflow: hidden;
+}
+.progress-p .progress-bar-p{
+    height: 11px;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.progress-p .progress-bar-p.progress-green{
+    background: #2CC472;
+}
+.progress-p .progress-bar-p.progress-orange{
+    background: #FFD45F;
+}
+.progress-p .progress-bar-p.progress-red{
+    background: #C93030;
+}
+.block-prog-c{
+  	position: relative;
+  	padding-left: 35px;
+  	padding-top: 4px;
+}
+.block-prog-c span{
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-size: 13px;
+    color: #8D8D8D;
+}
+.block-prog-c .progress-p{
+    border-radius: 0;
+    height: 11px;
+    background: #222222;
+}
+.block-prog-c .progress-p .progress-calf{
+    background: #FEC541;
+}
+.mbo-5{
+	margin-bottom: 3rem!important;
+}
+.list-answer{
+  	border-radius: 6px;
+  	background: #1B1C1E;
+  	padding: 18px 20px;
+  	margin-bottom: 20px;
+}
+.list-answer p{
+	color: #B9B9B9;
+	font-size: 14px;
+	line-height: 140%;
+    font-weight: 300;
+	margin-bottom: 0;
+    margin-top: 0;
+}
+.item-answer{
+  	position: relative;
+  	padding-left: 55px;
+  	padding-right: 70px;
+  	min-height: 44px;
+  	margin-bottom: 15px;
+}
+.item-answer figure{
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+    margin: 0;
+}
+.item-answer figure img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.item-answer>span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 14px;
+    color: #6A6A6E;
+}
+.item-answer h3{
+    font-size: 16px;
+    color: #B9B9B9;
+    font-weight: 500;
+    margin-bottom: 0px;
+    margin-top: 0;
+}
+.item-answer .start-calf ion-icon{
+    color: #FEC964;
+    font-size: 12px;
+    margin-right: 1px;
+}
+.btn-close{
+    --background: var(--background);
+    --background-activated: var(--background);
+    --background-focused: var(--background);
+    --background-hover: var(--background);
+    --color: #ededed;
+    margin: 0;
+    margin-left: 8px;
+    font-size: 15px !important;
+    height: 38px !important;
+    --padding-start: 0;
+    ion-icon {
+      margin-right: 3px;
+    }
+}
+/*end*/

@@ -1,0 +1,49 @@
+<ng-container *ngIf="isTransmited; else elseTemplateTransmited">
+  <div
+    plyr
+    [plyrPlaysInline]="true"
+    [plyrSources]="sources"
+    [plyrDriver]="hlsjsDriver1"
+    [plyrOptions]="options"
+    (plyrInit)="playerInit($event)"
+  ></div>
+</ng-container>
+<ng-template #elseTemplateTransmited>
+  <ng-container *ngIf="countdownActive">
+    <div class="block-count-trans">
+      <h4>Inicia en</h4>
+      <div
+        id="custom-date"
+        class="listTiempo custom-countdown"
+        data-countdown="2021/06/20"
+        (finish)="onfinish()"
+      ></div>
+      <!-- <span class="tag t-zoom"><i><img alt="" src="assets/ico-zoom.png"></i></span> -->
+    </div>
+  </ng-container>
+</ng-template>
+<div class="block-count-trans" *ngIf="!isTransmited && !countdownActive">
+  <ul class="reset-ul">
+    <li>
+      <!-- 
+        //Cambio de leadgods solo palabra transmitida
+        <a (click)="openUrl(resourceRoom?.media?.url)" class="btn-l-primary-m"
+          >Ir a transmisión <ion-icon name="arrow-forward-outline"></ion-icon
+        ></a> 
+      -->
+      <div style="height: auto" class="span-message-transmitted">
+        Sesión transmitida
+      </div>
+    </li>
+  </ul>
+  <div class="b-tecn-r">
+    <ul class="reset-ul">
+      <li>
+        <!-- <app-tag
+          [stream]="resourceRoom?.media?.stream"
+          [isLive]="true"
+        ></app-tag> -->
+      </li>
+    </ul>
+  </div>
+</div>

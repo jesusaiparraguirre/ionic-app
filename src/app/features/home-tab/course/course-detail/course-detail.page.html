@@ -1,0 +1,206 @@
+<!--<ion-header translucent style="position: absolute; top: 0">-->
+<!--	<ion-toolbar class="bg-header">-->
+<!--		<ion-button class="btn-back" (click)="location.back()">-->
+<!--			<ion-icon name="chevron-back-outline"></ion-icon>-->
+<!--		</ion-button>-->
+<!--		<ion-title class="title-page">{{ course && course.isPayment ? 'Curso' : 'Curso gratuito'}}</ion-title>-->
+<!--	</ion-toolbar>-->
+<!--</ion-header>-->
+<div>
+	<ion-toolbar class="bg-header">
+		<ion-button class="btn-back" (click)="location.back()">
+			<ion-icon name="chevron-back-outline"></ion-icon>
+		</ion-button>
+		<ion-title class="title-page" *ngIf="course && course.isPayment">CURSO</ion-title>
+		<ion-title class="title-page" *ngIf="course && !course.isPayment">CURSO GRATUITO</ion-title>
+	</ion-toolbar>
+</div>
+<ion-content class="bg-content-page" fullscreen>
+	<div class="image-article" *ngIf="course">
+		<img *ngIf="!course.video" [src]="course.image.real" />
+		<iframe *ngIf="course.video" [src]="sanitizer.bypassSecurityTrustResourceUrl(course.video)" allow="autoplay;"
+			frameborder="0" allowfullscreen width="100%"></iframe>
+	</div>
+	<div class="content-article" *ngIf="course">
+		<div class="b-title-article">
+			<span class="tag-new" *ngIf="course.isNew">Nuevo</span>
+			<h1>{{ course.name }}</h1>
+			<span class="t-autor" *ngIf="course.author && course.author.length">Por {{ listAuthors(course.author)
+				}}</span>
+			<p [innerHTML]="course.detailComplete"></p>
+		</div>
+		<hr *ngIf="course.resume">
+		<div class="b-list-article-t" *ngIf="course.resume">
+			<ul>
+				<!-- <li *ngIf="course.resume.student">
+					<ion-icon name="person-outline"></ion-icon> {{ course.resume.student }} {{ course.resume.student ==
+					1 ? 'alumno' : 'alumnos' }}
+				</li> -->
+				<li *ngIf="course.resume.module">
+					<ion-icon name="layers"></ion-icon> {{ course.resume.module }} {{ course.resume.module == 1
+					? 'módulo' : 'módulos' }}
+				</li>
+				<li *ngIf="course.resume.session">
+					<ion-icon name="videocam"></ion-icon> {{ course.resume.session }} {{ course.resume.session == 1
+					? 'sesión' : 'sesiones' }}
+				</li>
+				<li *ngIf="course.duration">
+					<ion-icon name="time"></ion-icon> {{ course.duration }}
+				</li>
+				<li *ngIf="course.resume.unlimitedAccess">
+					<ion-icon name="infinite-outline"></ion-icon> Acceso ilimitado
+				</li>
+				<li *ngIf="course.resume.student">
+					<ion-icon name="person"></ion-icon> {{ course.resume.student }} estudiantes
+				</li>
+				<li *ngIf="course.valoration.average && course.subType === '25'">
+					<ion-icon name="star"></ion-icon> {{ course.valoration.average }} valoración
+				</li>
+				<li *ngIf="course.certificate">
+					<ion-icon name="medal-outline"></ion-icon>Certificado
+				</li>
+				<!-- <li *ngIf="course.valoration.average && course.subType === '25'">
+					<ion-icon name="download"></ion-icon> {{ course.valoration.average }} recursos descargables
+				</li> -->
+			</ul>
+		</div>
+		<hr *ngIf="course.recipients.length !== 0">
+		<div class="b-title-article mt-5" *ngIf="course.recipients.length !== 0">
+			<h1>¿A quién va dirigido el curso?</h1>
+		</div>
+		<div class="b-list-article-t" *ngIf="course.recipients.length !== 0">
+			<ul>
+				<li *ngFor="let i of course.recipients">
+					<ion-icon name="checkmark"></ion-icon> {{ i }}
+				</li>
+			</ul>
+		</div>
+		<hr *ngIf="course.benefits && course.benefits.length != 0">
+		<div class="b-list-course" *ngIf="course.benefits && course.benefits.length != 0">
+			<h3 class="title-block-c">Beneficios del curso</h3>
+			<ul>
+				<li *ngFor="let benefit of course.benefits">
+					<ion-icon name="checkmark-outline"></ion-icon> {{ benefit }}
+				</li>
+			</ul>
+		</div>
+		<!-- <hr *ngIf="!course.isPayment && course.sessions.length"> -->
+		<hr *ngIf="course.sessions && course.sessions.length">
+		<div *ngIf="course.sessions && course.sessions.length" class="b-content-course">
+			<h3 class="title-block-c">Contenido del curso</h3>
+			<div class="content-list-course">
+				<div class="block-item-sub">
+					<ul>
+						<li *ngFor="let item of course.sessions">
+							<div>
+								<h3>{{item.title}}</h3>
+								<ul>
+									<li><i class="ico-cc"></i> Video - {{ item.duration }} min</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<hr *ngIf="course.internals">
+		<div class="b-content-course" *ngIf="course.internals">
+			<h3 class="title-block-c">Contenido del curso</h3>
+			<div class="content-list-course">
+				<div aria-expanded="true" class="accordion item-list-primary" data-multiselect="disabled"
+					*ngFor="let module of course.internals; let i = index">
+					<div class="item-list-title accordion__head">
+						<h3>Módulo {{ i + 1 }} - {{ module.title }}</h3>
+						<ion-icon name="chevron-up-outline" class="arrow-l arrow-up"></ion-icon>
+						<ion-icon name="chevron-down-outline" class="arrow-l arrow-down"></ion-icon>
+					</div>
+					<div class="accordion__container"
+						[ngStyle]="{'display': module.sessions && module.sessions.length ? 'block' : 'none'}">
+						<div class="accordion__body">
+							<div class="block-item-sub">
+								<ul>
+									<li *ngFor="let session of module.sessions">
+										<div>
+											<h3>{{ session.title }}</h3>
+											<ul>
+												<li><i class="ico-cc"></i> Video - {{ session.duration }} min</li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr *ngIf="course && course?.subType === '25' && course?.price?.length">
+		
+		<div class="b-ticket" *ngIf="course?.subType === '25' && course?.price?.length && environment.android">
+			<h3 class="title-block-c">Comprar ticket</h3>
+			<div class="item-ticket t-one" *ngFor="let item of course?.price; let i = index;"
+				[ngClass]="{'t-one': i%3 == 1,'t-two': i%3 == 2,'t-three': i%3 == 0}">
+				<div class="inf-ticket">
+					<h4>{{item.name}}</h4>
+					<h2>
+						{{item.priceFormat}}
+					</h2>
+					<h3 class="mb-15" *ngIf="item.enabledPromotion">
+						{{item.pricePromotionFormat}}
+					  </h3>
+					<ul *ngFor="let pri of item.price">
+						<li *ngIf="pri.name">
+							<ion-icon name="checkmark-circle"></ion-icon>{{pri.name}}
+						</li>
+					</ul>
+					<ul *ngFor="let ben of item.benefits">
+						<li>
+							<ion-icon name="checkmark-circle"></ion-icon> {{ben
+							? ben : '---'}}
+						</li>
+					</ul>
+				</div>
+				<ion-button (click)="openIonModalLinkPago(item.id)"> Comprar </ion-button>
+			</div>
+		</div>
+
+		<hr *ngIf="course && course.isPayment && course?.subscription?.active">
+
+		<div class="b-term" *ngIf="course?.termsConditions">
+			<h3 class="title-block-c">Términos y condiciones</h3>
+			<p>{{course?.termsConditions}}</p>
+		</div>
+		
+	</div>
+</ion-content>
+<ion-footer class="ion-no-padding ion-no-margin bg-course-footer" *ngIf="!course?.subscription?.active && !environment.android"
+	style="position: absolute; bottom: 0">
+	<div class="all-btn-preci" *ngIf="course && course.isPayment && course.subscription.active">
+		<!-- <div class="left">
+			<span>{{ course.price?.priceFormat }}</span>
+			<em *ngIf="course.price?.enabledPromotion">{{ course.price?.pricePromotionFormat }}</em>
+		</div>
+		<ion-button (click)="openIonModalLinkPago(course)" class="btn-solid-main regular right">Comprar
+		</ion-button> -->
+		<ion-button (click)="showClassroom(course)" class="btn-solid-success right">Acceder</ion-button>
+	</div>
+	<div class="all-btn-preci" *ngIf="course && !course.isPayment">
+		<ion-button (click)="subscribeFree(course)" class="btn-solid-success right">Acceder</ion-button>
+	</div>
+</ion-footer>
+<ion-footer class="ion-no-padding ion-no-margin bg-course-footer" *ngIf="!course?.subscription?.active && environment.android"
+	style="position: absolute; bottom: 0">
+	<div class="all-btn-preci" *ngIf="course && course.isPayment && course?.subType !== '25'">
+		<div class="left">
+			<span>{{ course.price?.priceFormat }}</span>
+			<em *ngIf="course.price?.enabledPromotion">{{ course.price?.pricePromotionFormat }}</em>
+		</div>
+		<ion-button (click)="openIonModalLinkPago(course)" class="btn-solid-main regular right">Comprar
+		</ion-button>
+	</div>
+	<div class="all-btn-preci" *ngIf="course && !course.isPayment">
+		<ion-button  (click)="subscribeFree(course)" class="btn-solid-success right">Acceder</ion-button>
+	</div>
+</ion-footer>

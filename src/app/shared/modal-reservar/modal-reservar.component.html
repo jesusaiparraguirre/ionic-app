@@ -1,0 +1,44 @@
+<ion-header class="header-modal" translucent>
+  <ion-toolbar>
+    <ion-title>Reservar mentoría</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal" fullscreen>
+  <div class="content-modal pt-35">
+    <form *ngIf="sendForm" [formGroup]="sendForm" autocomplete="off">
+      <label *ngIf="isActiveMentor" class="text-label">Mentor</label>
+      <ion-item *ngIf="isActiveMentor" class="custom-item-input mb-15">
+        <ion-select placeholder="[ Elige ]" class="label-select holder-select" formControlName="publicationId" appNoArrow (ionChange)="listDate()">
+          <ion-select-option *ngFor="let item of dataListMentors" [value]="item.id">{{item.name}}</ion-select-option>
+        </ion-select>
+        <div class="ico-select-c">
+          <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+        </div> 
+      </ion-item>
+      <label class="text-label">Fecha</label>
+      <ion-item class="custom-item-input mb-15">
+        <ion-select placeholder="[ Elige ]" class="label-select holder-select" formControlName="date" appNoArrow (ionChange)="listHour()">
+          <ion-select-option *ngFor="let item of dataListDates" [value]="item">{{item | date: 'dd/MM/yyyy'}}</ion-select-option>
+        </ion-select>
+        <div class="ico-select-c">
+          <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+        </div>
+      </ion-item>
+      <label class="text-label">Hora</label>
+      <ion-item class="custom-item-input mb-15">
+        <ion-select placeholder="[ Elige ]" class="label-select holder-select" formControlName="hour" appNoArrow>
+          <ion-select-option *ngFor="let item of dataListHours" [value]="item.interval">{{item.interval.hourIni}} - {{item.interval.hourFin}}</ion-select-option>
+        </ion-select>
+        <div class="ico-select-c">
+          <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+        </div>
+      </ion-item>
+      <div class="all-btn-modal">
+        <button class="btn-solid-main outline" (click)="closeModel()">No reservar</button>
+        <button class="btn-solid-main small modal" type="submit" [disabled]="sendForm.invalid" (click)="!isLoad ? save() : null ">
+          Reservar
+        </button>
+      </div>
+    </form>
+  </div>
+</ion-content>

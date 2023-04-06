@@ -1,0 +1,114 @@
+.button-solid:host{
+  --background: transparent;
+  --background-activated: $bg-btn-solid-main;
+  --background-focused: $bg-btn-solid-main;
+  --background-hover: $bg-btn-solid-main;
+  background: $bg-btn-solid-main;
+}
+
+.btn-solid-main {
+  --background: $bg-btn-solid-main;
+  --background-hover: $bg-btn-solid-main;
+  background: $bg-btn-solid-main;
+  color: $txt-btn-solid-main;
+  --opacity: 1;
+  margin: 0;
+  &.large {
+    height: 52px;
+    border-radius: 4px;
+    font-size: $font-sm;
+    font-weight: 600;
+    &.activated {
+      --background: transparent;
+      --background-activated: $bg-btn-solid-main;
+      --background-focused: $bg-btn-solid-main;
+      --background-hover: $bg-btn-solid-main;
+      background: $bg-btn-solid-main;
+    }
+  }
+  &.regular {
+    margin: 0;
+    height: 46px;
+    font-size: 15px;
+    font-weight: 500;
+    --border-radius: 10px;
+    border-radius: 10px;
+    --background: #ea6464;
+    --background-activated: #ee8181;
+    --background-focused: #ee8181;
+    --background-hover: #ee8181;
+  }
+  &.small {
+    --border-radius: 32px;
+    --padding-start: 30px;
+    --padding-end: 30px;
+    height: 32px;
+    border-radius: 32px;
+    font-size: $font-xs-5;
+    .icon-play {
+      font-size: $font-base;
+      margin-right: 3px;
+    }
+    .button-native {
+      padding: 0 30px;
+    }
+    &.activated {
+      --background: transparent;
+      --background-activated: #ee8181;
+      --background-focused: #ee8181;
+      --background-hover: #ee8181;
+      --border-radius: 32px;
+      border-radius: 32px;
+      background: $bg-btn-solid-main;
+    }
+    &.modal {
+      height: 45px;
+      line-height: 45px;
+      border: 0;
+      outline: 0;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 22px;
+      border-radius: 4px;
+    }
+  }
+  &.outline {
+    background: transparent;
+    border-radius: 4px;
+    height: 45px;
+    line-height: 43px;
+    border: 1px solid #e96463;
+    color: #e96463;
+    padding: 0 30px;
+    outline: 0;
+  }
+}
+.btn-solid-success {
+  margin: 0;
+  width: 100%;
+  height: 46px;
+  color: $txt-button;
+  font-size: $font-sm-5;
+  font-weight: 500;
+  --border-radius: 10px;
+  border-radius: 10px;
+  background: $bg-btn-solid-success;
+  --background: $bg-btn-solid-success;
+  --background-activated: $bg-btn-solid-success;
+  --background-focused: $bg-btn-solid-success;
+  --background-hover: $bg-btn-solid-success;
+}
+.btn-solid-warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-right: 0px;
+  vertical-align: top;
+  font-size: 14px;
+  color: $txt-btn-solid-warning;
+  height: 44px;
+  line-height: 44px;
+  border-radius: 4px;
+  background: $bg-btn-solid-warning;
+}

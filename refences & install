@@ -1,0 +1,88 @@
+
+pasos para instalar las librerias aap
+
+1 . instalar nvm
+referencia: https://tecadmin.net/how-to-install-nvm-on-ubuntu-20-04/
+instalar la version: nvm install v12.22.12
+
+2: instalar el ionic
+npm install -g @ionic/cli@6.20.1
+
+3: instalar las librerias
+npm i
+
+4: las versiones instaladas deberian se asi
+
+    ng --version
+
+        Angular CLI: 13.2.6
+        Node: 12.22.12
+        Package Manager: npm 6.14.16
+        OS: linux x64
+
+        Angular: 13.2.7
+        ... common, compiler, compiler-cli, core, forms
+        ... language-service, platform-browser, platform-browser-dynamic
+        ... router
+
+        Package                         Version
+        ---------------------------------------------------------
+        @angular-devkit/architect       0.1302.6
+        @angular-devkit/build-angular   13.2.6
+        @angular-devkit/core            13.2.6
+        @angular-devkit/schematics      13.2.6
+        @angular/cli                    13.2.6
+        @schematics/angular             13.2.6
+        rxjs                            6.6.7
+        typescript                      4.4.4
+
+
+
+instalaciones para la migracion del android con visual studio
+
+1: buscar en este link, descargar la vesion para el sistema operativo q necesite
+https://developer.android.com/studio/install
+
+
+2: referencia para instalar
+https://developer.android.com/studio/install#64bit-libs
+
+3 configuraciones instalar SDK
+    setting -> appearence & Behavior -> Android SDK
+    seleccione las versiones de android para instar
+
+4 crear nuevo projecto https://www.youtube.com/watch?v=JuYZ2xdHw3o
+    y configurar el dispositivo virtual
+
+
+/************************* para migar de visual code a android studio con capacitor **********************/
+
+https://capacitorjs.com/docs/android
+
+    1: ionic build (si es dev) o ionic build --prod(si es prod)
+    2: npx cap add android
+    2: npx cap sync android
+    3: npx cap open android
+
+
+
+version nivel
+https://developer.android.com/about/versions/12/setup-sdk?hl=es-419#groovy
+
+
+
+https://ionic.io/blog/update-your-target-android-api-level-by-november-1
+https://capacitorjs.com/docs/updating/4-0?__hstc=13779304.d46b2be00beae700de41fb948d4c7c36.1676581895281.1676581895281.1676581895281.1&__hssc=13779304.1.1676581895281&__hsfp=4212805066&_gl=1*9egme1*_ga*Nzg0NzMwMzIwLjE2NzY1ODE4OTM.*_ga_REH9TJF6KF*MTY3NjU4MTg5Mi4xLjAuMTY3NjU4MTg5My4wLjAuMA..
+
+orientation
+https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-screen-orientation/
+https://capacitorjs.com/docs/guides/screen-orientation
+
+@capacitor/filesystem
+https://capacitorjs.com/docs/apis/filesystem
+ios
+https://capacitorjs.com/docs/ios/configuration
+
+node version - sass versions
+https://stackoverflow.com/questions/48147896/error-in-cannot-find-module-node-sass
+

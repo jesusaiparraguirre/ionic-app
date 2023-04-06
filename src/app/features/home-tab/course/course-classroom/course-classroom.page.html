@@ -1,0 +1,198 @@
+<ion-header class="bg-video-course" *ngIf="dataCourse">
+  <ion-toolbar class="bg-header bg-header-course" mode="ios">
+    <ion-button class="btn-back" slot="start" (click)="location.back()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <!-- <ion-skeleton-text animated class="skeleton-media" *ngIf="isLoading"></ion-skeleton-text> -->
+  <!--  <div class="content-article" *ngIf="isLoading">
+    <div class="block-title-video">
+      <div class="b-title-article">
+        <ion-skeleton-text animated class="skeleton-text"></ion-skeleton-text>
+      </div>
+    </div>
+  </div>
+  <ion-skeleton-text
+    animated
+    class="skeleton-content"
+    *ngIf="isLoading"
+  ></ion-skeleton-text>
+  <ion-skeleton-text
+    animated
+    class="skeleton-content"
+    *ngIf="isLoading"
+  ></ion-skeleton-text>
+  <ion-skeleton-text
+    animated
+    class="skeleton-content"
+    *ngIf="isLoading"
+  ></ion-skeleton-text>
+  <ion-skeleton-text
+    animated
+    class="skeleton-content"
+    *ngIf="isLoading"
+  ></ion-skeleton-text> -->
+
+  <!--Cabecera-->
+  <ng-container *ngIf="$dataRoom | async as roomData; else elseTemplateRoomData">
+    <div class="header-room w-100">
+      <!-- error data -->
+      <ng-container *ngIf="isErrorData; else elseTemplateErrorData">
+        <div class="w-100">
+          <app-default></app-default>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplateErrorData>
+        <container [ngSwitch]="roomData?.type">
+          <!--Type Live-->
+          <div *ngSwitchCase="typesResource.live" class="w-100">
+            <app-live [resourceRoom]="roomData"></app-live>
+          </div>
+          <!--audio-->
+          <div *ngSwitchCase="typesResource.audio" class="w-100">
+            <app-audio  [resourceRoom]="roomData" (nextSessions)="getroom($event)"></app-audio>
+          </div>
+          <!--Link-->
+          <div *ngSwitchCase="typesResource.link" class="image-article">
+            <div class="w-100" >
+              <app-link [resourceRoom]="roomData" (nextSessions)="getroom($event)"></app-link>
+            </div>
+          </div>
+          <!--Media-->
+          <div *ngSwitchCase="typesResource.media" class="image-article">
+            <div class="w-100">
+              <app-media [resourceRoom]="roomData" (nextSessions)="getroom($event)"></app-media>
+            </div>
+          </div>
+          <!-- isImage -->
+          <div *ngSwitchCase="typesResource.image" class="image-article">
+            <div class="w-100">
+              <app-image [resourceRoom]="roomData" (nextSessions)="getroom($event)"></app-image>
+            </div>
+          </div>
+          <div *ngSwitchDefault>
+            <div class="w-100">
+              <div class="room-sniper">
+                <app-view-drip [resourceRoom]="roomData"></app-view-drip>
+              </div>
+            </div>
+          </div>
+        </container>
+      </ng-template>
+      <!--else error-->
+    </div>
+  </ng-container>
+  <ng-template #elseTemplateRoomData>
+    <div class="header-room w-100">
+      <div class="room-sniper">
+        <ion-spinner name="lines-sharp" style="color: white"></ion-spinner>
+      </div>
+    </div>
+  </ng-template>
+  <!--else loadind resource room-->
+  <div class="content-article" *ngIf="!isLoading">
+    <div class="block-title-video">
+      <div class="b-title-article">
+        <h1>{{dataCourse.title}}</h1>
+      </div>
+      <div class="dropdown transparent">
+        <button id="btnToggle" (click)="activeDropdown()" class="dropbtn"></button>
+        <div id="customDropdown" class="dropdown-content">
+          <button type="button" (click)="openIonModalSobreCurso()">
+            Sobre {{dataCourse.learningTypeArt}} {{dataCourse.learningType}}
+            <ion-icon name="information-circle-outline"></ion-icon>
+          </button>
+          <button type="button" (click)="openIonModalMateriales()">
+            Materiales <ion-icon name="document-outline"> </ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="publications.length" class="content-list-sesion">
+      <ion-item class="custom-item-input select-hour-t mb-10">
+        <ion-select class="label-select holder-select selec-module" appNoArrow [(ngModel)]="slug"
+          (ngModelChange)="changeSelectPublication()">
+          <ion-select-option *ngFor="let publication of publications" [value]="publication.id">{{publication.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="content-list-sesion">
+      <div class="all-content-course">
+        <ion-segment (ionChange)="segmentChanged($event)" class="nav-course" value="contenido">
+          <ion-segment-button value="contenido">
+            <ion-label> Contenido </ion-label>
+          </ion-segment-button>
+          <!-- <ion-segment-button value="comentarios">
+            <ion-label> Comentarios </ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="certificacion">
+            <ion-label> Certificación </ion-label>
+          </ion-segment-button> -->
+        </ion-segment>
+      </div>
+    </div>
+  </div>
+</ion-header>
+<!--content ionic -->
+<ion-content class="bg-content-page" fullscreen>
+  <div class="block-content-course">
+    <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int"
+      *ngIf="segment === 'contenido'">
+      <ng-container *ngIf="$dataSide | async as dataSessions; else elseTemplateSideData">
+
+        <app-course-modules *ngIf="type == typesClassroom.module" [dataSessions]="dataSessions" [keySelect]="keySelect"
+          (doModalResources)="openIonModalRecursos($event)" (doModalLinkPago)="openIonModalLinkPago($event)"
+          (doChooseSesion)="chooseSesion($event)"></app-course-modules>
+        <!-- || type == typesClassroom.courseAnvanced-->
+        <app-course-sessions *ngIf="type == typesClassroom.session" [dataSessions]="dataSessions"
+          [keySelect]="keySelect" (doModalResources)="openIonModalRecursos($event)"
+          (doChooseSesion)="chooseSesion($event)"></app-course-sessions>
+
+      </ng-container>
+      <ng-template #elseTemplateSideData>
+        <div class="header-room w-100">
+          <div class="room-sniper">
+            <ion-spinner name="lines-sharp" style="color: white"></ion-spinner>
+          </div>
+        </div>
+      </ng-template>
+      <!--else loadind resource room-->
+
+      <!-- <div class="card-rate w-full mt-8 item-list-primary" *ngIf="dataCourse">
+        <span class="ico-star-rate"></span>
+        <em>{{dataCourse.valoration}}</em>
+        <p>
+          Finalizado el {{dataCourse.title}}, puedes calificarlo: Ingresa al
+          apartado de “valorar curso” dando clic en el siguiente botón:
+        </p>
+        <button (click)="openValoration()">valorar curso</button>
+      </div> -->
+    </ion-list>
+    <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int"
+      *ngIf="segment === 'comentarios'">
+      <div class="content-list-course">
+        <div class="b-coment-tab">
+          <span><img src="assets/ico-g.png" alt="" /></span>
+          <p>
+            Estamos trabajando en esta sección, próximamente podrás añadir y
+            visualizar los comentarios
+          </p>
+        </div>
+      </div>
+    </ion-list>
+    <ion-list class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int"
+      *ngIf="segment === 'certificacion'">
+      <div class="content-list-course">
+        <div class="b-cert-tab">
+          <span><img src="assets/ico-cert.png" alt="" /></span>
+          <p>
+            Para iniciar con el examen de certificación debes concluir todos los
+            módulos y/o sesiones.
+          </p>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
+<!--Comment s-->

@@ -1,0 +1,43 @@
+<ion-header class="header-modal">
+  <ion-toolbar>
+    <ion-title>Sobre el {{detail.type == 'course' ? 'curso' : 'evento'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="bg-modal">
+  <div class="content-modal pt-35">
+    <div class="w-full block-about-modal">
+      <h3>Descripción del {{detail.type == 'course' ? 'curso' : 'evento'}}:</h3>
+      <div class="w-full inner-about-modal">
+        <ul class="reset-ul" *ngIf="detail.type == 'course'">
+          <li>Módulos: {{detail.modules}}</li>
+          <li>Clases: {{detail.sessions}}</li>
+          <li>Duración: {{detail.durations}}</li>
+        </ul>
+        <p>{{detail.detail}}</p>
+        <hr>
+        <div class="w-full block-teacher-c" *ngIf="detail.authors.length">
+          <h3>Acerca del docente:</h3>
+          <div class="w-full inner-user-p" *ngFor="let author of detail.authors">
+            <div class="img-user-desc">
+              <figure [ngStyle]="{'background-image': 'url('+ author.image.real +')'}"
+                style="background:url(assets/user.jpg) no-repeat;background-size:cover;background-position:center center;">
+              </figure>
+              <h4>{{author.name}}</h4>
+              <span>{{author.profession}}</span>
+              <p>{{author.detail}}</p>
+              <div class="w-full item-user-i" *ngIf="detail.type == 'course'">
+                <ul class="reset-ul">
+                  <li><a><i class="fab fa-facebook-square"></i></a></li>
+                  <li><a><i class="fab fa-twitter-square"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all-btn-modal">
+      <button class="btn-solid-main outline" (click)="closeModel()">Volver</button>
+    </div>
+  </div>
+</ion-content>

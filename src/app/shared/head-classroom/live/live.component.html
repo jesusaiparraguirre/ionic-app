@@ -1,0 +1,12 @@
+<ng-container *ngIf="!!resourceRoom">
+  <ng-container *ngIf="resourceRoom.media.stream == streamTypesResource.jitsi || resourceRoom.media.stream == streamTypesResource.live ; else elseTemplateZoom">
+      <div class="absolute inset-0">
+          <div class="w-full h-full relative">
+              <app-live-player [resourceRoom]="resourceRoom" class="video-custom-plyr absolute inset-0 w-full h-full"></app-live-player>
+          </div>
+      </div>
+  </ng-container>
+  <ng-template #elseTemplateZoom>
+      <app-live-link [resourceRoom]="resourceRoom" class="content-center"></app-live-link>
+  </ng-template>
+</ng-container>

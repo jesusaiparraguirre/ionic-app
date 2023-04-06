@@ -1,0 +1,173 @@
+<ion-header class="bg-video-course" translucent>
+  <ion-toolbar class="bg-header bg-header-course" mode="ios">
+    <ion-button class="btn-back" slot="start" (click)="location.back()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+
+  <!-- <ion-skeleton-text
+    animated
+    class="skeleton-media"
+    *ngIf="isLoading"
+  ></ion-skeleton-text> -->
+  <!-- <div class="content-article" *ngIf="isLoading">
+    <div class="block-title-video">
+      <div class="b-title-article">
+        <ion-skeleton-text animated class="skeleton-text"></ion-skeleton-text>
+      </div>
+    </div>
+  </div> -->
+  <!-- <ion-skeleton-text
+    animated
+    class="skeleton-content"
+    *ngIf="isLoading"
+  ></ion-skeleton-text>
+  <ion-skeleton-text
+    animated
+    class="skeleton-content"
+    *ngIf="isLoading"
+  ></ion-skeleton-text> -->
+
+  <!--Cabecera-->
+  <div class="header-room w-100">
+    <div class="w-100" *ngIf="isErrorData">
+      <app-default></app-default>
+    </div>
+
+    <ng-container
+      *ngIf="$dataRoom | async as roomData; else elseTemplateRoomDataEvent"
+    >
+      <ng-container *ngIf="!roomData.access; else elseTemplateAccesEvent">
+        <div class="block-count-trans text-drip">
+          <p class="text-drip-message">{{roomData.message}}</p>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplateAccesEvent>
+        <container [ngSwitch]="roomData?.type">
+          <!--Type Live-->
+          <div class="w-100" *ngSwitchCase="typesResource.live">
+            <app-live class="w-100" [resourceRoom]="roomData"></app-live>
+          </div>
+          <div class="image-article" *ngSwitchDefault>
+            <!--Link-->
+            <div class="w-100" *ngIf="roomData?.type == typesResource.link">
+              <app-link [resourceRoom]="roomData"></app-link>
+            </div>
+            <!--Media-->
+            <div class="w-100" *ngIf="roomData?.type == typesResource.media">
+              <app-media [resourceRoom]="roomData"></app-media>
+            </div>
+            <!-- isImage -->
+            <div class="w-100" *ngIf="roomData?.type == typesResource.image">
+              <app-image [resourceRoom]="roomData"></app-image>
+            </div>
+          </div>
+        </container>
+      </ng-template>
+    </ng-container>
+    <ng-template #elseTemplateRoomDataEvent>
+      <div class="w-100">
+        <div class="room-sniper">
+          <ion-spinner name="lines-sharp" style="color: white"></ion-spinner>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="content-article">
+    <div class="block-title-video">
+      <br />
+      <ion-item class="custom-item-input select-hour-t mb-10">
+        <ion-select
+          class="label-select holder-select"
+          [(ngModel)]="timezoneSelected"
+          (ionChange)="timeZoneChange()"
+          appNoArrow
+        >
+          <ion-select-option value="America/Lima" disabled
+            >Seleccione franja horaria</ion-select-option
+          >
+          <ion-select-option *ngFor="let i of timezone" [value]="i.timezone"
+            >Hora: {{i.name}}</ion-select-option
+          >
+          <!-- <ion-select-option value="02">Hora: Ecuador</ion-select-option>
+          <ion-select-option value="03">Hora: Chile</ion-select-option> -->
+        </ion-select>
+      </ion-item>
+      <div class="b-title-article">
+        <h1>{{title}}</h1>
+      </div>
+      <div class="dropdown">
+        <br /><br />
+        <button
+          id="btnToggle"
+          (click)="activeDropdown()"
+          class="dropbtn"
+        ></button>
+        <div id="customDropdown" class="dropdown-content">
+          <button type="button" (click)="openIonModalSobreCurso()">
+            Sobre el evento
+            <ion-icon name="information-circle-outline"></ion-icon>
+          </button>
+          <!-- <button type="button" (click)="openIonModalMateriales()">Materiales <ion-icon name="document-outline">
+            </ion-icon></button> -->
+        </div>
+      </div>
+    </div>
+    <div class="content-list-sesion">
+      <!-- <ion-item class="custom-item-input select-hour-t mb-10">
+        <ion-select class="label-select holder-select" appNoArrow>
+          <ion-select-option value="01">Hora: Perú</ion-select-option>
+          <ion-select-option value="02">Hora: Ecuador</ion-select-option>
+          <ion-select-option value="03">Hora: Chile</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      <div class="all-content-course">
+        <ion-segment
+          (ionChange)="segmentChanged($event)"
+          class="nav-course"
+          value="contenido"
+        >
+          <ion-segment-button value="contenido">
+            <ion-label> Contenido </ion-label>
+          </ion-segment-button>
+          <!-- <ion-segment-button value="chat-vivo">
+            <ion-label>
+              Chat en vivo
+            </ion-label>
+          </ion-segment-button> -->
+        </ion-segment>
+      </div>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="this.dataSessions" class="block-content-course">
+    <ion-list
+      class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int"
+      *ngIf="segment === 'contenido'"
+    >
+      <app-event-sessions
+        [dataSessions]="dataSessions"
+        [keySelect]="keySelect"
+        [showTimeZone]="timezoneSelected === 'America/Lima' ? true : false"
+        (doChooseSesion)="chooseSesion($event)"
+      ></app-event-sessions>
+    </ion-list>
+    <ion-list
+      class="animate__animated animate__slideInUp animate__fast custom-block-list list-course-int"
+      *ngIf="segment === 'chat-vivo'"
+    >
+      <div class="content-list-course">
+        <div class="b-coment-tab">
+          <span><img src="assets/ico-g.png" alt="" /></span>
+          <p>
+            Estamos trabajando en esta sección, próximamente podrás añadir y
+            visualizar los comentarios
+          </p>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

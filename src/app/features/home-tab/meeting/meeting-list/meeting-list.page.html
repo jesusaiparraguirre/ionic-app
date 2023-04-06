@@ -1,0 +1,76 @@
+<ion-header translucent>
+	<ion-toolbar class="bg-header">
+		<ion-button class="btn-back" (click)="location.back()">
+			<ion-icon name="chevron-back-outline"></ion-icon>
+		</ion-button>
+		<ion-title class="title-page">Mentoría</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content class="bg-content-page" fullscreen>
+
+	<div class="b-package-int" *ngIf="isLoading">
+		<!-- <ion-skeleton-text animated class="skeleton-title"></ion-skeleton-text> -->
+		<div class="all-item-ment">
+			<ion-list>
+				<ion-item *ngFor="let item of [1,2,3,4,5,6]">
+					<div class="item-ment-int">
+						<ion-skeleton-text animated class="skeleton-text"></ion-skeleton-text>
+						<ion-skeleton-text animated class="skeleton-text-large"></ion-skeleton-text>
+						<ion-skeleton-text animated class="skeleton-text"></ion-skeleton-text>
+						<div class="all-btn-reser">
+							<ion-skeleton-text animated class="skeleton-button"></ion-skeleton-text>
+							<ion-skeleton-text animated class="skeleton-button"></ion-skeleton-text>
+						</div>
+					</div>
+				</ion-item>
+			</ion-list>
+		</div>
+	</div>
+
+	<div class="b-package-int" *ngIf="!isLoading">
+		<!-- <h1>{{title}}</h1> -->
+		<div class="all-item-ment">
+			<ion-list>
+				<ion-item *ngFor="let item of dataList">
+					<div class="item-ment-int">
+						<h2>{{item.publicationName}}</h2>
+						<span *ngIf="!item.action?.reserve" class="text-fech-h">
+							<ion-icon name="globe-outline"></ion-icon>
+							{{formatTime(item.date, item.hour, item.timezone)}}
+						</span>
+						<span *ngIf="item.action?.reserve && item.status != 0" class="text-fech-h">
+							<ion-icon name="globe-outline"></ion-icon> PENDIENTE A RESERVA
+						</span>
+						<span *ngIf="item.stateDesc" class="t-reserv-m st-{{item.stateDesc}}">{{item.stateDesc}}</span>
+						<span *ngIf="item.statusDesc"
+							class="t-reserv-m st-{{item.statusDesc}}">{{item.statusDesc}}</span>
+						<div class="all-btn-reser">
+							<button *ngIf="item.action?.to_access && !item.is_teacher"
+								(click)="doAccess(item.action?.link)" class="btn-l-ini">Acceder</button>
+							<button *ngIf="item.action?.reserve && !item.is_teacher"
+								(click)="openIonModalReservar(item)" class="btn-l-reser">Reservar</button>
+							<button *ngIf="item.action?.postpone && !item.is_teacher"
+								(click)="openIonModalPosponer(item)" class="btn-l-post">Posponer</button>
+							<button *ngIf="item.action?.start && item.is_teacher"
+								(click)="!isStarting ? start(item.id) : null " class="btn-l-ini">Iniciar</button>
+							<button *ngIf="item.action?.culminate && item.is_teacher"
+								(click)="openIonModalCompletar(item.id)" class="btn-l-post">Completar</button>
+							<button *ngIf="item.action?.cancel && item.is_teacher"
+								(click)="openIonModalCancelar(item.id)" class="btn-l-cal">Cancelar</button>
+							<!-- <button *ngIf="item.action?.calendar" (click)="openIonModalCalendario()" class="btn-l-cal">Calendario</button> -->
+							<!-- <button *ngIf="!!item.record" (click)="doDownload(item.id)" class="btn-l-down">Descargar</button> -->
+						</div>
+					</div>
+				</ion-item>
+				<ion-item *ngIf="!dataList.length" style="height: 50vh;--background: #0F0F10;">
+					<div class="span-message">Aún no contamos con registros</div>
+				</ion-item>
+			</ion-list>
+			<ion-infinite-scroll (ionInfinite)="doInfinite($event)"
+				*ngIf="dataList?.length && pagination?.current != pagination?.last">
+				<ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+				</ion-infinite-scroll-content>
+			</ion-infinite-scroll>
+		</div>
+	</div>
+</ion-content>

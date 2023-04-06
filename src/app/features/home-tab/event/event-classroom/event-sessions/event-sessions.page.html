@@ -1,0 +1,110 @@
+<div *ngIf="dataSessions" class="content-list-session content-list-event">
+  <!-- [ngClass]="{'item-disable': !sesions.dateStatus || !sesions.status}"-->
+  <div *ngFor="let sesions of dataSessions; index as i" class="item-list-primary mb-0">
+    <div [ngClass]="{'activeItemSession': keySelect == sesions.key  }" class="flex items-start justify-between cursor-pointer px-16 pt-12 relative">
+      <div class="flex item-acc" (click)="toChooseSession(sesions)">
+        <div class="flex flex-col items-center w-12 min-w-12 mr-6 line-list-card">
+          <!-- <div class="beffore-line-e line-card trans-in-out h-full bg-base-line w-1"></div> -->
+          <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 12 12">
+            <circle stroke="#707070" fill="transparent" stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+              style="opacity: 1;"></circle>
+            <circle class="progress-ring--ring" stroke="var(--color-secondary-light, #E35758)" fill="transparent"
+              stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+              [ngStyle]="{'stroke-dashoffset': sesions.user && sesions.user.viewed ? 0 : 99}"></circle>
+          </svg>
+          <!-- <div class="after-line-e line-card trans-in-out h-full bg-base-line w-1"></div> -->
+        </div>
+        <div class="card-acc flex flex-col pb-12 trans-in-out">
+          <ng-container *ngIf="sesions.status; else elseTemplateSessionStatus">
+            <h3   class="trans-in-out">
+              <span class="tag-vivo"> En vivo </span>
+              {{sesions.title}}
+            </h3>
+            <ul [id]="sesions.key" class="reset-ul">
+              <ng-container *ngIf="sesions.live; else elseTemplateLive">
+                <ng-container *ngIf="sesions.streamState == 'culminate'; else elseTemplateTransmited">
+                    <li>
+                        <span class="tag-calendar"> Finalizado </span>
+                    </li>
+                </ng-container>
+                <ng-template #elseTemplateTransmited>
+                    <li style="display: flex;">
+                      <span class="tag-calendar" *ngIf="showTimeZone">
+                        <ion-icon class="font-13-ico ios hydrated" name="time-outline" ng-reflect-name="time-outline"
+                        role="img" aria-label="calendar outline"></ion-icon> 
+                          {{sesions.dateStream}}
+                          <!-- {{formatHelper.formatDateLong(sesions.dateStream,
+                            sesions.timezone + ' ')}}  -->
+                      </span>
+                      <span class="tag-calendar" *ngIf="!showTimeZone">
+                        <ion-icon class="font-13-ico ios hydrated" name="time-outline" ng-reflect-name="time-outline"
+                        role="img" aria-label="calendar outline"></ion-icon> {{sesions.dateStream}} 
+                      </span>
+                      <span class="tag-calendar" *ngIf="showTimeZone">
+                        &nbsp;- {{sesions.timezone}}  
+                      </span>
+                    </li>
+                    <!-- <li>
+                        <span *ngIf="sesions.dateStream" class="tag-calendar"><i class="fas fa-calendar-alt"></i>
+                            {{sesions.dateStream }}</span>
+                    </li> -->
+                </ng-template>
+            </ng-container>
+            <ng-template #elseTemplateLive>
+                <li>
+                    <span class="text-one"><ion-icon class="font-13-ico ios hydrated" name="time-outline" ng-reflect-name="time-outline"
+                      role="img" aria-label="calendar outline"></ion-icon> {{ sesions.duration }}.</span>
+                </li>
+            </ng-template>
+              <!-- <li>
+                <span [ngClass]="{'text-one': sesions.streamState != 'start', 'tag-prog': sesions.streamState == 'start'}">
+                  {{sesions.streamStateDesc}}
+                </span>
+              </li>
+              <li style="display: flex;">
+                <span class="tag-calendar" *ngIf="showTimeZone">
+                  <ion-icon class="font-13-ico ios hydrated" name="calendar-outline" ng-reflect-name="calendar-outline"
+                    role="img" aria-label="calendar outline"></ion-icon> {{formatHelper.formatDateLong(sesions.dateStream,
+                      sesions.timezone + ' ')}} 
+                </span>
+                <span class="tag-calendar" *ngIf="!showTimeZone">
+                  <ion-icon class="font-13-ico ios hydrated" name="calendar-outline" ng-reflect-name="calendar-outline"
+                    role="img" aria-label="calendar outline"></ion-icon> {{sesions.dateStream}} 
+                </span>
+                <span class="tag-calendar" *ngIf="showTimeZone">
+                  &nbsp;- {{sesions.timezone}}  
+                </span>
+              </li> -->
+            <button type="button" class="btn-calendar"
+              (click)="openIonModalCalendario()">
+              <ion-icon name="calendar-outline"></ion-icon> Calendario
+            </button>
+          </ul>
+          </ng-container>
+          <ng-template #elseTemplateSessionStatus>
+              <h3 class="status-session"><span *ngIf="sesions.live" class="tag-vivo">En vivo</span> {{sesions.title}}</h3>
+              <ul class="reset-ul">
+                  <li style="display: flex;">
+                    <span class="text-one" *ngIf="showTimeZone">
+                      <ion-icon class="font-13-ico ios hydrated" name="time-outline" ng-reflect-name="time-outline"
+                        role="img" aria-label="calendar outline"></ion-icon> {{sesions.dateStream}}
+                        <!-- {{formatHelper.formatDateLong(sesions.dateStream,
+                          sesions.timezone + ' ')}}  -->
+                    </span>
+                    <span class="text-one" *ngIf="!showTimeZone">
+                      <ion-icon class="font-13-ico ios hydrated" name="time-outline" ng-reflect-name="time-outline"
+                        role="img" aria-label="calendar outline"></ion-icon> {{sesions.dateStream}} 
+                    </span>
+                    <span class="text-one" *ngIf="showTimeZone">
+                      &nbsp;- {{sesions.timezone}}  
+                    </span>
+                  </li>
+                <!-- <a *ngIf="!dataDrip.dripState" [attr.href]="dataDrip.backUrl" type="button" class="btn-rec">Adquirir</a> -->
+              </ul>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Comment s-->

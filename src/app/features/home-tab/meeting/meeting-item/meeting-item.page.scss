@@ -1,0 +1,15 @@
+.item-art{
+	//height: 237px;
+    border-radius: 6px;
+}
+.t-autor{
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.left{
+    font-size: 15px;
+    color: #ededed;
+    font-weight: 600;
+}

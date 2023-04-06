@@ -1,0 +1,10 @@
+/*CountDown*/
+.custom-countdown {
+  & > div {
+    &.w-large{
+      span{
+        width: 38px;
+      }
+    }
+  }
+}

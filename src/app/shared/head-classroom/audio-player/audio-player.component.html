@@ -1,0 +1,29 @@
+<audio playsinline
+    #player
+    [src]="src">
+</audio>
+
+<ion-toolbar class="toolbar" padding>
+    <div class="ion-text-center">
+        <ion-button (click)="play()" size="large" fill="clear" color="light">
+            <ng-container *ngIf="isLoading; else loaded">Cargando...</ng-container>
+
+            <ng-template #loaded>
+                <ion-icon [name]="isPlaying ? 'pause' : 'play'">
+                </ion-icon>
+                <!-- {{ isPlaying ? 'Pausa' : 'Play' }} -->
+            </ng-template>
+        </ion-button>
+    </div>
+
+    <!-- (ionChange)="seek($event)" -->
+
+    <ion-range
+        min="0"
+        [max]="duration"
+        [value]="currentTime"
+        color="light">
+        <ion-label color="light" slot="start">{{ currentTime }}</ion-label>
+        <ion-label color="light" slot="end">{{ duration }}</ion-label>
+    </ion-range>
+</ion-toolbar>

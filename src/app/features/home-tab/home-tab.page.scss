@@ -1,0 +1,123 @@
+.page-content {
+  padding: 15px 0;
+  .logo-user {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+.course-home {
+  height: 208px;
+  position: relative;
+  background-size: cover !important;
+  background-position: center top !important;
+  .b-title-course {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 0 30px;
+    padding-bottom: 20px;
+    padding-top: 45px;
+    background: -moz-linear-gradient(
+      top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      top,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+    h2 {
+      margin-top: 0;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .btn-l-home {
+      height: 32px;
+      line-height: 32px;
+      border-radius: 4px;
+      font-size: 12px;
+      --color: #434343;
+      --color-activated: #434343;
+      --color-focused: #434343;
+      --color-hover: #434343;
+      --background: rgba(255, 255, 255, 0.8);
+      --background-hover: rgba(255, 255, 255, 0.8);
+      --background-focused: rgba(255, 255, 255, 0.8);
+      --background-activated: rgba(255, 255, 255, 0.8);
+      ion-icon {
+        margin-right: 3px;
+      }
+    }
+  }
+}
+.card-item{
+  float: left;
+  height: 100%;
+}
+.block-article-list {
+  padding: 30px 0 20px 10px;
+}
+.block-courses-home {
+  margin-bottom: 38px;
+  .swiper-slide {
+    //height: 262px;
+    width: 165px;
+  }
+}
+.block-events-home {
+  margin-bottom: 35px;
+  .swiper-slide {
+    //height: 310px;
+    width: 228px;
+  }
+}
+.block-campaign-home {
+  margin-bottom: 35px;
+  .swiper-slide {
+    //height: 269px;
+    width: 250px;
+  }
+}
+.block-ment-home {
+  margin-bottom: 0;
+  .swiper-slide {
+    //height: 262px;
+    width: 165px;
+  }
+}
+.skeletonCard {
+  border-radius: 10px;
+  height: 100px;
+  background-color: #fff;
+}
+
+.skeletonTitle{
+  height: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.block-count-trans {
+  position: relative;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  flex-direction: column;
+  margin-top: 50px;
+}

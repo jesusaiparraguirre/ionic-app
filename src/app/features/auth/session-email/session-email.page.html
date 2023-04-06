@@ -1,0 +1,18 @@
+<form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="block-form-session">
+	<ion-content class="bg-content" fullscreen>
+		<div class="content-login">
+			<h2 class="title-block-login">Iniciar sesión</h2>
+			<ion-item class="custom-item-input">
+				<ion-input class="input-custom" type="email" placeholder="Email" formControlName="email"></ion-input>
+			</ion-item>
+			<div class="error-message">
+				<span *ngIf=" (submitted && !f.email.value) || (f.email.value == '' && f.email.hasError && f.email.hasError('required'))">{{ messages.FIELD_EMPTY }}</span>
+				<span *ngIf="f.email.hasError && f.email.hasError('pattern')">{{ messages.FORMAT_EMAIL }}</span>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer class="ion-no-padding ion-no-margin bg-border-footer" style="position: absolute; bottom: 0;">
+		<ion-button expand="block" type="submit" class="btn-solid-main large">Continuar</ion-button>
+		<ion-button expand="block" (click)="register()" class="btn-solid-main large mt">Registrar</ion-button>
+	</ion-footer>
+</form>

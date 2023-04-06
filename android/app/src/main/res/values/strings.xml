@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">LEADGODS</string>
+    <string name="title_activity_main">LEADGODS</string>
+    <string name="package_name">com.leadgods.app.desa</string>
+    <string name="custom_url_scheme">com.leadgods.app.desa</string>
+</resources>

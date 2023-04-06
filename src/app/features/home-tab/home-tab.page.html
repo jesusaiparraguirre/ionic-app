@@ -1,0 +1,131 @@
+<div class="page-content center-box" *ngIf="!isLoading && !publications.length">
+  <div class="block-promotion">
+    <ion-icon name="gift"></ion-icon>
+    <span>Pronto disponible</span>
+  </div>
+</div>
+
+<ion-content class="bg-content-page" fullscreen>
+  <div class="page-content" [ngStyle]="{'padding-top': !(logo && logo?.real) ? '0' : '15px' }">
+    <span class="logo-user" *ngIf="logo && logo?.real && !isLoading">
+      <img [src]="logo?.real" width="88" height="100%" alt="" />
+    </span>
+
+    <div *ngIf="recommend && recommend.type ==='image' && !isLoading" class="course-home"
+      [ngStyle]="{'background':'url('+recommend?.image+') no-repeat'}">
+      <div class="b-title-course">
+        <h2>{{recommend?.title}}</h2>
+      </div>
+    </div>
+
+    <div *ngIf="recommend && recommend.type ==='video' && !isLoading">
+      <iframe *ngIf="recommend.url" [src]="sanitizer.bypassSecurityTrustResourceUrl(recommend.url)" allow="autoplay;"
+        frameborder="0" allowfullscreen width="100%" height="250"></iframe>
+    </div>
+
+    <div class="block-count-trans" *ngIf="isErrorData">
+      <ion-icon name="cellular"></ion-icon>
+      <h4>Error al obtener el recurso</h4>
+    </div>
+
+    <div class="block-article-list">
+
+      <div *ngFor="let publication of publications">
+
+        <!--Course-->
+        <div class="block-courses-home" *ngIf="publication.type == '2' && publication?.data?.length">
+          <div class="title-block-sl">
+            <h4 *ngIf="!isLoading && !!publication?.data?.length">{{ publication?.title }}</h4>
+            <a *ngIf="!isLoading && !!publication?.data?.length" (click)="redirectMore(2)">Ver más</a>
+            <ion-skeleton-text *ngIf="isLoading" animated class="skeletonTitle">
+            </ion-skeleton-text>
+          </div>
+          <ion-slides *ngIf="!isLoading && !!publication?.data?.length" pager="false" [options]="slideOptsCourses">
+            <ion-slide *ngFor="let item of publication?.data">
+              <app-course-item class="card-item" [item]="item" [ind]="'course'" (doAction)="showCourse($event)">
+              </app-course-item>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides *ngIf="isLoading" pager="false" [options]="slideOptsCourses">
+            <ion-slide *ngFor="let skeleton of skeletonList">
+              <ion-skeleton-text animated class="skeletonCard">
+              </ion-skeleton-text>
+            </ion-slide>
+          </ion-slides>
+        </div>
+
+        <!--Events-->
+        <div class="block-events-home" *ngIf="publication.type == '1' && publication?.data?.length">
+          <div class="title-block-sl">
+            <h4 *ngIf="!isLoading && !!publication?.data?.length">{{ publication?.title }}</h4>
+            <a *ngIf="!isLoading && !!publication?.data?.length" (click)="redirectMore(1)">Ver más</a>
+            <ion-skeleton-text *ngIf="isLoading" animated class="skeletonTitle">
+            </ion-skeleton-text>
+          </div>
+          <ion-slides *ngIf="!isLoading && !!publication?.data?.length" pager="false" [options]="slideOptsEvents">
+            <ion-slide *ngFor="let item of publication?.data">
+              <app-event-item class="card-item" [item]="item" [ind]="'course'" (doAction)="showEvent($event)">
+              </app-event-item>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides *ngIf="isLoading" pager="false" [options]="slideOptsEvents">
+            <ion-slide *ngFor="let skeleton of skeletonList">
+              <ion-skeleton-text animated class="skeletonCard">
+              </ion-skeleton-text>
+            </ion-slide>
+          </ion-slides>
+        </div>
+
+        <!--Meeting-->
+        <div class="block-courses-home" *ngIf="publication.type == '500' && publication?.data?.length">
+          <div class="title-block-sl">
+            <h4 *ngIf="!isLoading && publication?.data?.length">{{ publication?.title }}</h4>
+            <a *ngIf="!isLoading && publication?.data?.length" (click)="redirectMore(500)">Ver más</a>
+            <ion-skeleton-text *ngIf="isLoading" animated class="skeletonTitle">
+            </ion-skeleton-text>
+          </div>
+          <ion-slides *ngIf="!isLoading && publication?.data?.length" pager="false" [options]="slideOptsMent">
+            <ion-slide *ngFor="let item of publication?.data">
+              <app-meeting-item class="card-item" [item]="item" [ind]="'course'" (doAction)="showMeeting($event)">
+              </app-meeting-item>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides *ngIf="isLoading" pager="false" [options]="slideOptsEvents">
+            <ion-slide *ngFor="let skeleton of skeletonList">
+              <ion-skeleton-text animated class="skeletonCard">
+              </ion-skeleton-text>
+            </ion-slide>
+          </ion-slides>
+        </div>
+
+        <!--Campaign-->
+        <div class="block-campaign-home" *ngIf="publication.type == '400' && publication?.data?.length">
+          <div class="title-block-sl">
+            <h4 *ngIf="!isLoading && !!publication?.data?.length">{{ publication?.title }}</h4>
+            <a *ngIf="!isLoading && !!publication?.data?.length" (click)="redirectMore(400)">Ver más</a>
+            <ion-skeleton-text *ngIf="isLoading" animated class="skeletonTitle">
+            </ion-skeleton-text>
+          </div>
+          <ion-slides *ngIf="!isLoading && !!publication?.data?.length" pager="false" [options]="slideOptsCampaign">
+            <ion-slide *ngFor="let item of publication?.data">
+              <app-campaign-item class="card-item" [item]="item" [ind]="'course'" (doAction)="showCampaign($event)">
+              </app-campaign-item>
+            </ion-slide>
+          </ion-slides>
+          <ion-slides *ngIf="isLoading" pager="false" [options]="slideOptsEvents">
+            <ion-slide *ngFor="let skeleton of skeletonList">
+              <ion-skeleton-text animated class="skeletonCard">
+              </ion-skeleton-text>
+            </ion-slide>
+          </ion-slides>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,152 @@
+<div class="content-list-course">
+  <!--Session I-->
+  <div *ngFor="let module of dataSessions; let i = index">
+    <!--Session II-->
+    <ng-container *ngIf="module.status; else elseTemplateDripModule"> <!-- i == currentIndexModule -->
+      <div aria-expanded="true" class="accordion item-list-primary" data-multiselect="disabled"
+        [ngClass]="{'activeModule' : module.isOpen }">
+        <div class="accordion__head item-acc flex items-start justify-between cursor-pointer px-20 pt-15 relative">
+          <div class="flex">
+            <div class="flex flex-col items-center w-12 min-w-12 mr-6 pt-3">
+              <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 12 12">
+                <circle stroke="#707070" fill="transparent" stroke-width="1" stroke-dasharray="32 32" r="5" cx="6"
+                  cy="6" style="opacity: 1;"></circle>
+                <circle class="progress-ring--ring" stroke="var(--color-secondary-light, #E35758)" fill="transparent"
+                  stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+                  [ngStyle]="{'stroke-dashoffset': module.user.viewed ? 0 : 99}"></circle>
+              </svg>
+              <div class="line-card trans-in-out h-full bg-base-line w-1"></div>
+            </div>
+            <div class="card-acc flex flex-col mr-12 pb-12 trans-in-out">
+              <span *ngIf="module.live" class="tag-vivo">En vivo</span>
+              <h3 class="trans-in-out">{{module.title}}</h3>
+              <ul class="reset-ul">
+                <li>
+                  <span class="text-one">
+                    <ion-icon class="font-13-ico" name="videocam-outline"></ion-icon> {{module.totalSessions}}
+                    {{module.totalSessions == 1 ? 'sesión' :'sesiones'}}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ico-arrow">
+            <ion-icon name="chevron-down-outline" class="arrow-l arrow-down"></ion-icon>
+          </div>
+        </div>
+        <!--Modulos internos-->
+        <div class="accordion__container">
+          <div class="accordion__body"> <!--  j == currentIndex && i == currentIndexModule} -->
+            <div *ngFor="let session of module.items; ; let j = index"
+              [ngClass]="{'activeItemSession' : keySelect == session.key }"
+              class="item-card-sec flex w-full px-20 cursor-pointer trans-in-out relative">
+              <div class="flex item-acc flex-col items-center w-12 min-w-12 mr-6">
+                <div class="beffore-line trans-in-out h-full bg-base-line w-1"></div>
+                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" height="12" width="12"
+                  viewBox="0 0 12 12">
+                  <circle stroke="#707070" fill="transparent" stroke-width="1" stroke-dasharray="32 32" r="5" cx="6"
+                    cy="6" style="opacity: 1;"></circle>
+                  <circle class="progress-ring--ring" stroke="var(--color-secondary-light, #E35758)" fill="transparent"
+                    stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+                    [ngStyle]="{'stroke-dashoffset': session.user.viewed ? 0 : 99}"></circle>
+                </svg>
+                <div class="after-line trans-in-out h-full bg-base-line w-1"></div>
+              </div>
+              <div [id]="session.key" class="contain-session-left" (click)="toChooseSession(module, session )">
+                <div class="card-acc flex flex-col pb-12 trans-in-out">
+                  <div class="flex">
+                    <div class="flex flex-col">
+                      <ion-icon *ngIf="session.mediaType == 'upload'" class="font-14-ico" name="videocam"></ion-icon>
+                      <ion-icon *ngIf="session.mediaType == 'link'" class="font-14-ico" name="link"></ion-icon>
+                      <i class="ico-img" *ngIf="session.mediaType == 'none' || session.mediaType == 'image'"><img
+                          src="assets/img-not.png" alt=""></i>
+                      <img src="assets/en-vivo-not.svg" *ngIf="session.mediaType == 'live'" class="i-live" alt="">
+                      <ion-icon name="volume-medium" *ngIf="module.mediaType == 'audio'"
+                        class="font-14-ico"></ion-icon>
+                    </div>
+                    <div>
+                      <h3 class="trans-in-out txt-module">{{session.title}}</h3>
+                    </div>
+                  </div>
+                  <ul class="reset-ul">
+                    <ng-container *ngIf="session.live ; else elseTemplateSessionLive">
+                      <ng-container *ngIf="session.streamState == 'culminate'; else elseTemplateTransmited">
+                        <li>
+                            <span class="tag-calendar"> Finalizado </span>
+                        </li>
+                      </ng-container>
+                      <ng-template #elseTemplateTransmited>
+                      <!-- <li *ngIf="session.duration">
+                        <span class="text-one">
+                          <ion-icon class="font-13-ico" name="time-outline"></ion-icon> {{session.duration}}
+                        </span>
+                      </li> -->
+                      <li *ngIf="session.live && session.stream">
+                        <app-tag [stream]="session.stream" [isLive]="session.live"></app-tag>
+                      </li>
+                      <li *ngIf="session.dateStream">
+                        <span class="tag-calendar">
+                          <ion-icon class="font-13-ico" name="calendar-outline"></ion-icon>
+                          {{formatHelper.formatDateLong(session.dateStream, session.timezone)}}
+                        </span>
+                      </li>
+                      </ng-template>
+                    </ng-container>
+                  <ng-template #elseTemplateSessionLive>
+                    <li *ngIf="session.duration">
+                      <span class="text-one">
+                        <ion-icon class="font-13-ico" name="time-outline"></ion-icon> {{session.duration}}
+                      </span>
+                    </li>
+                  </ng-template>
+                  </ul>
+                </div>
+              </div>
+              <div class="contain-resource-right">
+                <div class="card-acc flex flex-col pt-12 pb-12 trans-in-out">
+                  <!-- <button class="btn-download" (click)="getDownloadUrl(module.key)">
+                  <ion-icon name="download"></ion-icon>
+                </button> -->
+                  <button
+                    *ngIf="session.attachments.task.length || session.attachments.materials || session.attachments.schemes"
+                    type="button" class="btn-rec" (click)="toModalResources(session)">Recursos</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <!-- drip-->
+    <ng-template #elseTemplateDripModule>
+      <div class="accordion item-list-primary dripActiveItemSession" data-multiselect="disabled">
+        <div class="accordion__head item-acc flex items-start justify-between cursor-pointer px-20 pt-15 relative">
+          <div class="flex" (click)="toChooseSession(module)">
+            <div class="flex flex-col items-center w-12 min-w-12 mr-6 pt-3">
+              <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 12 12">
+                <circle stroke="#707070" fill="transparent" stroke-width="1" stroke-dasharray="32 32" r="5" cx="6"
+                  cy="6" style="opacity: 1;"></circle>
+                <circle class="progress-ring--ring" stroke="var(--color-secondary-light, #E35758)" fill="transparent"
+                  stroke-width="1" stroke-dasharray="32 32" r="5" cx="6" cy="6"
+                  [ngStyle]="{'stroke-dashoffset': module.user.viewed ? 0 : 99}"></circle>
+              </svg>
+              <div class="line-card trans-in-out h-full bg-base-line w-1"></div>
+            </div>
+            <div class="card-acc flex flex-col mr-12 pb-12 trans-in-out">
+              <span *ngIf="module.live" class="tag-vivo">En vivo</span>
+              <h3 class="trans-in-out">{{module.title}}</h3>
+              <ul class="reset-ul">
+                <li *ngIf="module.dateAvailable">
+                  <span class="text-one">
+                    <ion-icon class="font-13-ico" name="time-outline"></ion-icon> {{module.dateAvailable}}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<!--Comment s-->
